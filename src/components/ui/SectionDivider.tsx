@@ -1,9 +1,11 @@
 export default function SectionDivider() {
   return (
-    <div className="flex items-center justify-center py-8">
-      <div className="flex-1 h-px bg-border" />
-      <div className="w-3 h-3 bg-foreground rounded-full mx-4" />
-      <div className="flex-1 h-px bg-border" />
+    <div className="max-w-[1440px] mx-auto px-5">
+      <div className="flex items-center">
+        <div className="flex-1 h-[2px] bg-dark-card" />
+        <div className="w-[30px] h-[30px] md:w-[50px] md:h-[50px] bg-foreground rounded-full" />
+        <div className="flex-1 h-[2px] bg-dark-card" />
+      </div>
     </div>
   );
 }

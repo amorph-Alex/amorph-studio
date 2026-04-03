@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const blogPosts = [
   {
@@ -11,25 +12,30 @@ const blogPosts = [
   },
   {
     slug: "obtinerea-autorizatiei-de-construire",
-    title: "Obținerea autorizației de construire",
+    title: "Ordinea electrocasnice-lor în bucătărie",
   },
 ];
 
 export default function BlogPreview() {
   return (
-    <section className="max-w-7xl mx-auto px-6 py-16">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <section className="max-w-[1440px] mx-auto px-5 py-12">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[900px] mx-auto">
         {blogPosts.map((post) => (
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
             className="group block"
           >
-            {/* Image placeholder */}
-            <div className="aspect-square rounded-2xl overflow-hidden mb-4 bg-gradient-to-br from-green-800 via-green-600 to-amber-100">
-              <div className="w-full h-full group-hover:scale-105 transition-transform duration-300" />
+            <div className="aspect-square rounded-none overflow-hidden mb-4">
+              <Image
+                src="/images/blog-thumbnail.png"
+                alt={post.title}
+                width={300}
+                height={300}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
             </div>
-            <h3 className="text-center font-semibold text-lg">
+            <h3 className="text-center font-light text-xl md:text-2xl leading-tight">
               {post.title}
             </h3>
           </Link>

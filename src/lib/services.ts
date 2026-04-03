@@ -78,6 +78,20 @@ export const services: Service[] = [
     ],
     heroColor: "from-red-600 via-yellow-500 to-gray-900",
   },
+  {
+    slug: "dezvoltare-web",
+    title: "dezvoltare",
+    subtitle: "web",
+    description:
+      "Servicii complete de dezvoltare web, de la site-uri de prezentare la aplicații web complexe. Construim experiențe digitale performante și ușor de utilizat.",
+    bulletPoints: [
+      "Site-uri de prezentare",
+      "Aplicații web",
+      "E-commerce",
+      "Optimizare performanță",
+    ],
+    heroColor: "from-amber-500 via-yellow-600 to-gray-900",
+  },
 ];
 
 export function getServiceBySlug(slug: string): Service | undefined {
