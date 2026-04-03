@@ -4,7 +4,8 @@ export interface Service {
   subtitle: string;
   description: string;
   bulletPoints: string[];
-  heroColor: string;
+  heroImage: string;
+  isBulletList: boolean;
 }
 
 export const services: Service[] = [
@@ -13,84 +14,62 @@ export const services: Service[] = [
     title: "planificare",
     subtitle: "urbană",
     description:
-      "Procesul de planificare urbană reprezintă pasul esențial în ceea ce privește dezvoltarea unei noi clădiri. Viziunea se materializează prin studii și documentații precum p.u.z. și p.u.d.",
-    bulletPoints: [
-      "Plan Urbanistic Zonal (PUZ)",
-      "Plan Urbanistic de Detaliu (PUD)",
-      "Certificat de urbanism",
-      "Documentații tehnice",
-    ],
-    heroColor: "from-amber-600 via-gray-800 to-gray-900",
+      "întregul proces de planificare urbană reprezintă pasul incipient în ceea ce privește construirea unei noi clădiri. acesta se materializează prin analize, studii și documentații specifice precum p.u.z. și p.u.d.",
+    bulletPoints: [],
+    heroImage: "/images/hero-planificare.png",
+    isBulletList: false,
   },
   {
     slug: "strategii-urbane",
     title: "strategii",
     subtitle: "urbane",
     description:
-      "Strategiile implică analize detaliate, studii complexe și documentații specifice care vizează planificarea pe termen lung, cum ar fi regenerare urbană, mobilitate și politici de dezvoltare economică și socială.",
-    bulletPoints: [
-      "Analize teritoriale",
-      "Strategii de dezvoltare",
-      "Planuri de mobilitate",
-      "Politici urbane",
-    ],
-    heroColor: "from-yellow-500 via-orange-600 to-gray-900",
+      "strategiile implică analize detaliate, studii complexe și documentații specifice care vizează planificarea pe termen lung, cum ar fi strategii de regenerare urbană, planuri de mobilitate și politici de dezvoltare economică și socială",
+    bulletPoints: [],
+    heroImage: "/images/hero-strategii.png",
+    isBulletList: false,
   },
   {
     slug: "regenerare-urbana",
     title: "regenerare",
     subtitle: "urbană",
     description:
-      "Transformarea zonelor din mediul urban începe prin implementarea unor intervenții specifice, cum ar fi reamenajarea spațiilor publice, crearea de infrastructură verde și altele. Prin aceste inițiative, se urmărește revitalizarea țesutului urban.",
-    bulletPoints: [
-      "Reamenajare spații publice",
-      "Infrastructură verde",
-      "Revitalizare urbană",
-      "Proiecte de regenerare",
-    ],
-    heroColor: "from-red-500 via-orange-500 to-gray-900",
+      "transformarea zonelor din mediul urban încep prin implementarea unor intervenții specifice, cum ar fi reameanjarea spațiilor publice, crearea de infrastructură verde și altele. prin aceste inițiative, se urmărește revitalizarea țesutului",
+    bulletPoints: [],
+    heroImage: "/images/hero-regenerare.png",
+    isBulletList: false,
   },
   {
     slug: "design-interior",
     title: "design",
     subtitle: "interior",
-    description:
-      "Planificarea spațiului interior cu atenție la fiecare detaliu. Oferim soluții complete de la concept până la execuție.",
+    description: "",
     bulletPoints: [
-      "Planificarea spațiului",
-      "Randări fotorealistice",
-      "Proiect tehnic",
-      "Consultanță pe perioada execuției",
+      "planificarea spațiului",
+      "randări fotorealistice",
+      "proiect tehnic",
+      "constultanță pe perioada execuției",
     ],
-    heroColor: "from-yellow-400 via-amber-600 to-gray-900",
+    heroImage: "/images/hero-interior.png",
+    isBulletList: true,
   },
   {
     slug: "graphic-design",
     title: "graphic",
     subtitle: "design",
-    description:
-      "Servicii complete de design grafic, de la analiză și concept până la execuție. Creăm identități vizuale puternice și materiale grafice care comunică eficient.",
-    bulletPoints: [
-      "Identitate vizuală",
-      "Branding",
-      "Materiale de marketing",
-      "Design digital",
-    ],
-    heroColor: "from-red-600 via-yellow-500 to-gray-900",
+    description: "",
+    bulletPoints: ["analiza"],
+    heroImage: "/images/hero-graphic.png",
+    isBulletList: true,
   },
   {
     slug: "dezvoltare-web",
     title: "dezvoltare",
     subtitle: "web",
-    description:
-      "Servicii complete de dezvoltare web, de la site-uri de prezentare la aplicații web complexe. Construim experiențe digitale performante și ușor de utilizat.",
-    bulletPoints: [
-      "Site-uri de prezentare",
-      "Aplicații web",
-      "E-commerce",
-      "Optimizare performanță",
-    ],
-    heroColor: "from-amber-500 via-yellow-600 to-gray-900",
+    description: "",
+    bulletPoints: [],
+    heroImage: "/images/hero-dev.png",
+    isBulletList: false,
   },
 ];
 
