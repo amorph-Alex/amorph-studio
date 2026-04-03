@@ -21,7 +21,7 @@ export async function generateMetadata({
   if (!service) return {};
   return {
     title: `${service.title} ${service.subtitle}`,
-    description: service.description || `${service.title} ${service.subtitle}`,
+    description: service.description,
   };
 }
 
@@ -34,9 +34,8 @@ export default async function ServicePage({ params }: PageProps) {
     <>
       <Header />
       <main className="flex-1">
-        {/* Hero section — image left, title + description right */}
         <section className="max-w-[1440px] mx-auto px-5 py-8">
-          <div className="grid md:grid-cols-2 gap-8 items-start">
+          <div className="grid md:grid-cols-2 gap-8">
             {/* Hero image */}
             <div className="aspect-square relative">
               <Image
@@ -48,34 +47,17 @@ export default async function ServicePage({ params }: PageProps) {
               />
             </div>
 
-            {/* Title + description */}
-            <div className="pt-4">
-              <h1 className="text-5xl md:text-[90px] font-bold leading-tight tracking-[0.1em] text-right">
+            {/* Title + description — fills exactly the image height */}
+            <div className="flex flex-col justify-between text-right aspect-square">
+              <h1 className="text-5xl md:text-[90px] font-bold leading-tight tracking-[0.1em]">
                 {service.title}
                 <br />
                 {service.subtitle}
               </h1>
 
-              {/* Description text */}
-              {service.description && (
-                <p className="mt-12 text-xl md:text-[32px] font-light leading-normal">
-                  {service.description}
-                </p>
-              )}
-
-              {/* Bullet points */}
-              {service.bulletPoints.length > 0 && (
-                <div className="mt-10 space-y-4">
-                  {service.bulletPoints.map((point) => (
-                    <p
-                      key={point}
-                      className="text-xl md:text-[32px] font-light tracking-[0.1em]"
-                    >
-                      {point}
-                    </p>
-                  ))}
-                </div>
-              )}
+              <p className="text-xl md:text-[28px] font-light leading-relaxed">
+                {service.description}
+              </p>
             </div>
           </div>
         </section>
