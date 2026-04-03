@@ -56,19 +56,20 @@ export default async function ServicePage({ params }: PageProps) {
                 {service.subtitle}
               </h1>
 
-              {/* Description text or bullet list */}
+              {/* Description text */}
               {service.description && (
-                <p className="mt-12 text-2xl md:text-[40px] font-light leading-normal">
+                <p className="mt-12 text-xl md:text-[32px] font-light leading-normal">
                   {service.description}
                 </p>
               )}
 
-              {service.isBulletList && service.bulletPoints.length > 0 && (
-                <div className="mt-12 space-y-6">
+              {/* Bullet points */}
+              {service.bulletPoints.length > 0 && (
+                <div className="mt-10 space-y-4">
                   {service.bulletPoints.map((point) => (
                     <p
                       key={point}
-                      className="text-2xl md:text-[40px] font-light tracking-[0.1em]"
+                      className="text-xl md:text-[32px] font-light tracking-[0.1em]"
                     >
                       {point}
                     </p>

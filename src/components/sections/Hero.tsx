@@ -34,7 +34,7 @@ const services = [
   },
   {
     title: "dezvoltare web",
-    href: "#",
+    href: "/servicii/dezvoltare-web",
     image: "/images/service-dev.png",
     offsetUp: false,
   },

@@ -68,7 +68,12 @@ export default function Footer() {
             >
               design grafic
             </Link>
-            <span className="text-muted">dezvoltare web</span>
+            <Link
+              href="/servicii/dezvoltare-web"
+              className="hover:text-accent transition-colors"
+            >
+              dezvoltare web
+            </Link>
           </div>
 
           {/* Column 3 - About */}

@@ -43,12 +43,13 @@ export const services: Service[] = [
     slug: "design-interior",
     title: "design",
     subtitle: "interior",
-    description: "",
+    description:
+      "creăm spații care reflectă personalitatea și nevoile fiecărui client. de la concept la execuție, fiecare detaliu contează.",
     bulletPoints: [
       "planificarea spațiului",
       "randări fotorealistice",
       "proiect tehnic",
-      "constultanță pe perioada execuției",
+      "consultanță pe perioada execuției",
     ],
     heroImage: "/images/hero-interior.png",
     isBulletList: true,
@@ -57,8 +58,15 @@ export const services: Service[] = [
     slug: "graphic-design",
     title: "graphic",
     subtitle: "design",
-    description: "",
-    bulletPoints: ["analiza"],
+    description:
+      "construim identități vizuale care comunică eficient și lasă o impresie de durată. fiecare proiect grafic trece printr-un proces riguros de analiză și creație.",
+    bulletPoints: [
+      "analiză",
+      "identitate vizuală",
+      "branding",
+      "materiale de marketing",
+      "design digital",
+    ],
     heroImage: "/images/hero-graphic.png",
     isBulletList: true,
   },
@@ -66,10 +74,16 @@ export const services: Service[] = [
     slug: "dezvoltare-web",
     title: "dezvoltare",
     subtitle: "web",
-    description: "",
-    bulletPoints: [],
+    description:
+      "construim experiențe digitale performante, de la site-uri de prezentare la aplicații web complexe. fiecare proiect este optimizat pentru viteză, accesibilitate și o experiență de utilizare excepțională.",
+    bulletPoints: [
+      "site-uri de prezentare",
+      "aplicații web",
+      "e-commerce",
+      "optimizare performanță",
+    ],
     heroImage: "/images/hero-dev.png",
-    isBulletList: false,
+    isBulletList: true,
   },
 ];
 
