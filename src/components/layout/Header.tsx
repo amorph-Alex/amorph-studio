@@ -5,11 +5,18 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
-const navLinks = [
+type PillState = "closed" | "services" | "contact";
+
+const navLinks: {
+  href: string;
+  label: string;
+  expandTo?: Exclude<PillState, "closed">;
+}[] = [
   { href: "/", label: "acasă" },
   { href: "/despre-noi", label: "despre noi" },
-  { href: "/servicii", label: "servicii", hasDropdown: true },
+  { href: "/servicii", label: "servicii", expandTo: "services" },
   { href: "/blog", label: "blog" },
+  { href: "/contact", label: "contact", expandTo: "contact" },
 ];
 
 const serviceLinks = [
@@ -21,18 +28,20 @@ const serviceLinks = [
   { href: "/servicii/dezvoltare-web", label: "dezvoltare web" },
 ];
 
+const BOUNCY = "cubic-bezier(.34,1.56,.64,1)";
+
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [pillExpanded, setPillExpanded] = useState(false);
+  const [pillState, setPillState] = useState<PillState>("closed");
   const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => {
       const isScrolled = window.scrollY > 80;
       setScrolled(isScrolled);
-      if (!isScrolled) setPillExpanded(false);
+      if (!isScrolled) setPillState("closed");
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -40,6 +49,8 @@ export default function Header() {
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+  const isExpanded = pillState !== "closed";
 
   return (
     <>
@@ -78,7 +89,7 @@ export default function Header() {
             {/* Desktop Nav */}
             <nav className="hidden md:flex flex-col items-end gap-2 text-2xl font-light pt-4">
               {navLinks.map((link) =>
-                link.hasDropdown ? (
+                link.expandTo === "services" ? (
                   <div
                     key={link.href}
                     className="relative"
@@ -153,7 +164,7 @@ export default function Header() {
           <nav className="md:hidden px-5 pt-3 pb-6 flex flex-col gap-[18px] text-xl font-light border-b border-border">
             {navLinks.map((link) => (
               <div key={link.href}>
-                {link.hasDropdown ? (
+                {link.expandTo === "services" ? (
                   <Link
                     href={link.href}
                     className="flex items-center justify-between"
@@ -188,27 +199,69 @@ export default function Header() {
         }`}
       >
         <div
-          className="pointer-events-auto flex flex-col items-stretch bg-dark text-platinum transition-all duration-300"
+          className="pointer-events-auto flex flex-col items-stretch bg-dark text-platinum"
           style={{
-            borderRadius: pillExpanded ? 28 : 999,
-            padding: pillExpanded ? "18px 22px" : "10px 12px",
+            borderRadius: isExpanded ? 28 : 999,
+            padding: isExpanded ? "18px 22px" : "10px 12px",
             minWidth: "min(540px, calc(100vw - 32px))",
             boxShadow: "0 12px 40px rgba(0,0,0,0.25), 0 2px 8px rgba(0,0,0,0.12)",
+            transition: `border-radius 350ms ${BOUNCY}, padding 350ms ${BOUNCY}`,
           }}
         >
-          {/* Services sub-grid — visible when expanded */}
-          {pillExpanded && (
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3.5 px-2 md:px-2.5 pb-3 mb-3 border-b border-white/10">
+          {/* Services panel */}
+          {pillState === "services" && (
+            <div
+              key="services-panel"
+              className="animate-fade-up grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3.5 px-2 md:px-2.5 pb-3 mb-3 border-b border-white/10"
+            >
               {serviceLinks.map((s) => (
                 <Link
                   key={s.href}
                   href={s.href}
                   className="text-xs md:text-sm font-light opacity-90 hover:text-accent transition-colors"
-                  onClick={() => setPillExpanded(false)}
+                  onClick={() => setPillState("closed")}
                 >
                   {s.label}
                 </Link>
               ))}
+            </div>
+          )}
+
+          {/* Contact panel */}
+          {pillState === "contact" && (
+            <div
+              key="contact-panel"
+              className="animate-fade-up flex flex-col md:flex-row gap-2.5 md:gap-[22px] px-2 md:px-2.5 pb-3 md:pb-[18px] mb-3 border-b border-white/10"
+            >
+              <a
+                href="mailto:office@amorph.ro"
+                onClick={() => setPillState("closed")}
+                className="flex items-center gap-2.5 hover:text-accent transition-colors"
+              >
+                <span className="w-[26px] h-[26px] rounded-full bg-accent inline-flex items-center justify-center shrink-0 text-foreground">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                    <rect x="3" y="5" width="18" height="14" rx="2" />
+                    <path d="M3 7l9 6 9-6" />
+                  </svg>
+                </span>
+                <span className="text-[13px] md:text-sm font-normal">
+                  office@amorph.ro
+                </span>
+              </a>
+              <a
+                href="tel:+40747089434"
+                onClick={() => setPillState("closed")}
+                className="flex items-center gap-2.5 hover:text-accent transition-colors"
+              >
+                <span className="w-[26px] h-[26px] rounded-full bg-accent inline-flex items-center justify-center shrink-0 text-foreground">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z" />
+                  </svg>
+                </span>
+                <span className="text-[13px] md:text-sm font-normal">
+                  +40 747 089 434
+                </span>
+              </a>
             </div>
           )}
 
@@ -224,28 +277,31 @@ export default function Header() {
               />
             </div>
             {navLinks.map((link) => {
-              const active = isActive(link.href);
-              const expanded = link.hasDropdown && pillExpanded;
+              const expandedHere =
+                link.expandTo !== undefined && pillState === link.expandTo;
+              const active = isActive(link.href) || expandedHere;
               return (
                 <Link
                   key={link.href}
-                  href={link.hasDropdown ? "#" : link.href}
+                  href={link.href}
                   onClick={
-                    link.hasDropdown
+                    link.expandTo
                       ? (e) => {
                           e.preventDefault();
-                          setPillExpanded((v) => !v);
+                          setPillState((s) =>
+                            s === link.expandTo ? "closed" : link.expandTo!
+                          );
                         }
                       : undefined
                   }
                   className={`px-2.5 md:px-3.5 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-normal whitespace-nowrap flex items-center gap-1 transition-colors ${
-                    active || expanded
+                    active
                       ? "bg-accent text-foreground"
                       : "hover:bg-white/10 text-platinum"
                   }`}
                 >
                   {link.label}
-                  {link.hasDropdown && (
+                  {link.expandTo && (
                     <svg
                       width="10"
                       height="10"
@@ -254,9 +310,10 @@ export default function Header() {
                       stroke="currentColor"
                       strokeWidth="2.2"
                       strokeLinecap="round"
-                      className={`transition-transform duration-200 ${
-                        pillExpanded ? "rotate-180" : ""
-                      }`}
+                      style={{
+                        transform: expandedHere ? "rotate(180deg)" : "none",
+                        transition: `transform 300ms ${BOUNCY}`,
+                      }}
                     >
                       <path d="M18 15l-6-6-6 6" />
                     </svg>
