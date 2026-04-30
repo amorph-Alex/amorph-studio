@@ -2,6 +2,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
 import AboutTeaser from "@/components/sections/AboutTeaser";
+import Promisiune from "@/components/sections/Promisiune";
 import ContactForm from "@/components/sections/ContactForm";
 import BlogPreview from "@/components/sections/BlogPreview";
 import SectionDivider from "@/components/ui/SectionDivider";
@@ -14,7 +15,7 @@ export default function Home() {
         <Hero />
         <SectionDivider />
         <AboutTeaser />
-        <SectionDivider />
+        <Promisiune />
         <ContactForm />
         <SectionDivider />
         <BlogPreview />
