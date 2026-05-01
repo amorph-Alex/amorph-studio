@@ -205,65 +205,103 @@ export default function Header() {
             padding: isExpanded ? "18px 22px" : "10px 12px",
             minWidth: "min(540px, calc(100vw - 32px))",
             boxShadow: "0 12px 40px rgba(0,0,0,0.25), 0 2px 8px rgba(0,0,0,0.12)",
-            transition: `border-radius 350ms ${BOUNCY}, padding 350ms ${BOUNCY}`,
+            transition: `border-radius 500ms ${BOUNCY}, padding 500ms ${BOUNCY}`,
           }}
         >
-          {/* Services panel */}
-          {pillState === "services" && (
-            <div
-              key="services-panel"
-              className="animate-fade-up grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3.5 px-2 md:px-2.5 pb-3 mb-3 border-b border-white/10"
-            >
-              {serviceLinks.map((s) => (
-                <Link
-                  key={s.href}
-                  href={s.href}
-                  className="text-xs md:text-sm font-light opacity-90 hover:text-accent transition-colors"
-                  onClick={() => setPillState("closed")}
-                >
-                  {s.label}
-                </Link>
-              ))}
+          {/* Services panel — always mounted, animates height via grid-rows trick */}
+          <div
+            className="grid"
+            style={{
+              gridTemplateRows: pillState === "services" ? "1fr" : "0fr",
+              transition: `grid-template-rows 500ms ${BOUNCY}`,
+            }}
+          >
+            <div className="overflow-hidden min-h-0">
+              <div
+                className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3.5 px-2 md:px-2.5 pb-3 mb-3 border-b border-white/10"
+                style={{
+                  opacity: pillState === "services" ? 1 : 0,
+                  transform:
+                    pillState === "services"
+                      ? "translateY(0)"
+                      : "translateY(-6px)",
+                  transition: `opacity 280ms ease, transform 450ms ${BOUNCY}`,
+                  transitionDelay: pillState === "services" ? "120ms" : "0ms",
+                }}
+              >
+                {serviceLinks.map((s) => (
+                  <Link
+                    key={s.href}
+                    href={s.href}
+                    tabIndex={pillState === "services" ? 0 : -1}
+                    aria-hidden={pillState !== "services"}
+                    className="text-xs md:text-sm font-light opacity-90 hover:text-accent transition-colors"
+                    onClick={() => setPillState("closed")}
+                  >
+                    {s.label}
+                  </Link>
+                ))}
+              </div>
             </div>
-          )}
+          </div>
 
-          {/* Contact panel */}
-          {pillState === "contact" && (
-            <div
-              key="contact-panel"
-              className="animate-fade-up flex flex-col md:flex-row gap-2.5 md:gap-[22px] px-2 md:px-2.5 pb-3 md:pb-[18px] mb-3 border-b border-white/10"
-            >
-              <a
-                href="mailto:office@amorph.ro"
-                onClick={() => setPillState("closed")}
-                className="flex items-center gap-2.5 hover:text-accent transition-colors"
+          {/* Contact panel — always mounted, animates height via grid-rows trick */}
+          <div
+            className="grid"
+            style={{
+              gridTemplateRows: pillState === "contact" ? "1fr" : "0fr",
+              transition: `grid-template-rows 500ms ${BOUNCY}`,
+            }}
+          >
+            <div className="overflow-hidden min-h-0">
+              <div
+                className="flex flex-col md:flex-row gap-2.5 md:gap-[22px] px-2 md:px-2.5 pb-3 md:pb-[18px] mb-3 border-b border-white/10"
+                style={{
+                  opacity: pillState === "contact" ? 1 : 0,
+                  transform:
+                    pillState === "contact"
+                      ? "translateY(0)"
+                      : "translateY(-6px)",
+                  transition: `opacity 280ms ease, transform 450ms ${BOUNCY}`,
+                  transitionDelay: pillState === "contact" ? "120ms" : "0ms",
+                }}
               >
-                <span className="w-[26px] h-[26px] rounded-full bg-accent inline-flex items-center justify-center shrink-0 text-foreground">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                    <rect x="3" y="5" width="18" height="14" rx="2" />
-                    <path d="M3 7l9 6 9-6" />
-                  </svg>
-                </span>
-                <span className="text-[13px] md:text-sm font-normal">
-                  office@amorph.ro
-                </span>
-              </a>
-              <a
-                href="tel:+40747089434"
-                onClick={() => setPillState("closed")}
-                className="flex items-center gap-2.5 hover:text-accent transition-colors"
-              >
-                <span className="w-[26px] h-[26px] rounded-full bg-accent inline-flex items-center justify-center shrink-0 text-foreground">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z" />
-                  </svg>
-                </span>
-                <span className="text-[13px] md:text-sm font-normal">
-                  +40 747 089 434
-                </span>
-              </a>
+                <a
+                  href="mailto:office@amorph.ro"
+                  tabIndex={pillState === "contact" ? 0 : -1}
+                  aria-hidden={pillState !== "contact"}
+                  onClick={() => setPillState("closed")}
+                  className="flex items-center gap-2.5 hover:text-accent transition-colors"
+                >
+                  <span className="w-[26px] h-[26px] rounded-full bg-accent inline-flex items-center justify-center shrink-0 text-foreground">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                      <rect x="3" y="5" width="18" height="14" rx="2" />
+                      <path d="M3 7l9 6 9-6" />
+                    </svg>
+                  </span>
+                  <span className="text-[13px] md:text-sm font-normal">
+                    office@amorph.ro
+                  </span>
+                </a>
+                <a
+                  href="tel:+40747089434"
+                  tabIndex={pillState === "contact" ? 0 : -1}
+                  aria-hidden={pillState !== "contact"}
+                  onClick={() => setPillState("closed")}
+                  className="flex items-center gap-2.5 hover:text-accent transition-colors"
+                >
+                  <span className="w-[26px] h-[26px] rounded-full bg-accent inline-flex items-center justify-center shrink-0 text-foreground">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z" />
+                    </svg>
+                  </span>
+                  <span className="text-[13px] md:text-sm font-normal">
+                    +40 747 089 434
+                  </span>
+                </a>
+              </div>
             </div>
-          )}
+          </div>
 
           {/* Main pill row */}
           <div className="flex items-center gap-1 md:gap-1.5 justify-between">
@@ -312,7 +350,7 @@ export default function Header() {
                       strokeLinecap="round"
                       style={{
                         transform: expandedHere ? "rotate(180deg)" : "none",
-                        transition: `transform 300ms ${BOUNCY}`,
+                        transition: `transform 500ms ${BOUNCY}`,
                       }}
                     >
                       <path d="M18 15l-6-6-6 6" />
