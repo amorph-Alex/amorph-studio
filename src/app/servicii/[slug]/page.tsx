@@ -10,7 +10,9 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-  return services.map((s) => ({ slug: s.slug }));
+  return services
+    .filter((s) => s.slug !== "planificare-urbana")
+    .map((s) => ({ slug: s.slug }));
 }
 
 export async function generateMetadata({
