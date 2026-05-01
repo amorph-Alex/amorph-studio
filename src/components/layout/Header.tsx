@@ -29,6 +29,9 @@ const serviceLinks = [
 ];
 
 const BOUNCY = "cubic-bezier(.34,1.56,.64,1)";
+// Non-overshooting smooth-out — used for border-radius so bouncy interpolation
+// doesn't briefly push the value below 0 (which would clamp to sharp corners).
+const SMOOTH_OUT = "cubic-bezier(.22,1,.36,1)";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -205,7 +208,7 @@ export default function Header() {
             padding: isExpanded ? "18px 22px" : "10px 12px",
             minWidth: "min(540px, calc(100vw - 32px))",
             boxShadow: "0 12px 40px rgba(0,0,0,0.25), 0 2px 8px rgba(0,0,0,0.12)",
-            transition: `border-radius 500ms ${BOUNCY}, padding 500ms ${BOUNCY}`,
+            transition: `border-radius 500ms ${SMOOTH_OUT}, padding 500ms ${BOUNCY}`,
           }}
         >
           {/* Services panel — always mounted, animates height via grid-rows trick */}
