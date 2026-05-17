@@ -10,7 +10,7 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-  const customSlugs = new Set(["planificare-urbana", "strategii-urbane", "graphic-design", "dezvoltare-web"]);
+  const customSlugs = new Set(["planificare-urbana", "strategii-urbane", "regenerare-urbana", "graphic-design", "dezvoltare-web"]);
   return services
     .filter((s) => !customSlugs.has(s.slug))
     .map((s) => ({ slug: s.slug }));
