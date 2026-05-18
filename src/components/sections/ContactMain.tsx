@@ -36,8 +36,12 @@ export default function ContactMain() {
     email: "",
     phone: "",
     message: "",
+    company: "",
   });
   const [formState, setFormState] = useState<FormState>("idle");
+  const [errorMessage, setErrorMessage] = useState<string>(
+    "Te rog completează câmpurile obligatorii marcate cu *."
+  );
 
   const hasErrors =
     formData.name.trim() === "" || formData.email.trim() === "";
@@ -45,12 +49,32 @@ export default function ContactMain() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (hasErrors) {
+      setErrorMessage("Te rog completează câmpurile obligatorii marcate cu *.");
       setFormState("error");
       return;
     }
     setFormState("loading");
-    await new Promise((r) => setTimeout(r, 1500));
-    setFormState("success");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, topic }),
+      });
+      if (!res.ok) {
+        setErrorMessage(
+          "Ceva nu a mers. Încearcă din nou sau scrie-ne direct la office@amorph.ro."
+        );
+        setFormState("error");
+        return;
+      }
+      setFormData({ name: "", email: "", phone: "", message: "", company: "" });
+      setFormState("success");
+    } catch {
+      setErrorMessage(
+        "Nu am putut trimite mesajul. Verifică conexiunea și încearcă din nou."
+      );
+      setFormState("error");
+    }
   };
 
   const inputBase =
@@ -169,6 +193,24 @@ export default function ContactMain() {
               <input type="hidden" name="topic" value={topic} />
               <input
                 type="text"
+                name="company"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                value={formData.company}
+                onChange={(e) =>
+                  setFormData({ ...formData, company: e.target.value })
+                }
+                style={{
+                  position: "absolute",
+                  left: "-9999px",
+                  width: "1px",
+                  height: "1px",
+                  opacity: 0,
+                }}
+              />
+              <input
+                type="text"
                 placeholder="Nume și prenume*"
                 value={formData.name}
                 onChange={(e) => {
@@ -215,7 +257,7 @@ export default function ContactMain() {
               />
               {formState === "error" && (
                 <p className="text-[13px] text-[#e04f3e] px-1">
-                  Te rog completează câmpurile obligatorii marcate cu *.
+                  {errorMessage}
                 </p>
               )}
               <div className="flex justify-end pt-1">
