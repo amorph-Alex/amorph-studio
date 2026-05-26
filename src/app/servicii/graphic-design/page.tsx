@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import AmorphBackdrop from "@/components/ui/AmorphBackdrop";
 import ServiciiFAQ from "@/components/sections/ServiciiFAQ";
 import type { FaqItem } from "@/lib/services";
+import { SHOW_SERVICE_PORTFOLIO } from "@/lib/flags";
 
 export const metadata: Metadata = {
   title: "Graphic Design — identitate vizuală cu sens",
@@ -806,6 +807,7 @@ export default function GraphicDesignPage() {
         </div>
 
         {/* ─────── PROIECTE RECENTE ─────── */}
+        {SHOW_SERVICE_PORTFOLIO && (
         <section className="max-w-[1400px] mx-auto px-5 md:px-14 pt-10 md:pt-[110px]">
           <div className="flex items-end justify-between mb-6 md:mb-12 gap-8">
             <div>
@@ -862,6 +864,7 @@ export default function GraphicDesignPage() {
             ))}
           </div>
         </section>
+        )}
 
         {/* ─────── FAQ ─────── */}
         <section className="max-w-[1400px] mx-auto px-5 md:px-14 pt-10 md:pt-[110px]">
