@@ -291,7 +291,7 @@ export default function PlanificareUrbanaPage() {
           </div>
           <div className="relative mt-6 md:mt-12 h-[220px] md:h-[480px] rounded-[20px] md:rounded-[32px] overflow-hidden border-[1.5px] md:border-2 border-dark-card">
             <Image
-              src="/images/service-urbanism.png"
+              src="/images/hero-planificare.png"
               alt="planificare urbană"
               fill
               priority
