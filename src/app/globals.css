@@ -31,6 +31,46 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 32px;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--foreground);
+}
+
+/* Pagini legale — prose stilizat (bullets ↳, spațiere confortabilă) */
+.prose-legal p {
+  line-height: 1.75;
+}
+.prose-legal p + p {
+  margin-top: 1.1em;
+}
+.prose-legal ul {
+  margin-top: 0.9em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55em;
+}
+.prose-legal ul li {
+  padding-left: 1.4em;
+  position: relative;
+  line-height: 1.7;
+}
+.prose-legal ul li::before {
+  content: "↳";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent);
+  font-weight: 500;
+}
+.prose-legal strong {
+  font-weight: 600;
+}
+
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -38,4 +78,20 @@ body {
 
 .animate-fade-up {
   animation: fadeUp 350ms cubic-bezier(.34, 1.56, .64, 1) both;
+}
+
+/* Animații pentru consimțământul de cookies (banner + modal de preferințe) */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(24px) scale(.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes sheetUp {
+  from { opacity: 0; transform: translateY(100%); }
+  to   { opacity: 1; transform: translateY(0); }
 }

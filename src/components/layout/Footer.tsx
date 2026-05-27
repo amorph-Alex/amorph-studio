@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CookiePrefsLink from "@/components/cookies/CookiePrefsLink";
 
 export default function Footer() {
   return (
@@ -84,6 +85,25 @@ export default function Footer() {
             >
               ce este amorph?
             </Link>
+            <Link
+              href="/confidentialitate"
+              className="hover:text-accent transition-colors"
+            >
+              confidențialitate
+            </Link>
+            <Link
+              href="/termeni"
+              className="hover:text-accent transition-colors"
+            >
+              termeni și condiții
+            </Link>
+            <Link
+              href="/cookies"
+              className="hover:text-accent transition-colors"
+            >
+              politica de cookies
+            </Link>
+            <CookiePrefsLink />
           </div>
 
           {/* Column 4 - Contact */}
