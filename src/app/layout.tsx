@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Comfortaa } from "next/font/google";
 import "./globals.css";
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
 import CookieConsent from "@/components/cookies/CookieConsent";
 
 const comfortaa = Comfortaa({
@@ -9,28 +10,34 @@ const comfortaa = Comfortaa({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Amorph Studio",
-    template: "%s | Amorph Studio",
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
   },
-  description:
-    "Studio multidisciplinar de design — planificare urbană, strategii urbane, regenerare urbană, design interior și graphic design.",
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
   keywords: [
     "amorph studio",
-    "planificare urbana",
-    "design interior",
+    "planificare urbană",
+    "PUZ",
+    "PUD",
+    "analiză teren",
     "strategii urbane",
-    "regenerare urbana",
+    "regenerare urbană",
+    "design interior",
     "graphic design",
-    "arhitectura",
+    "dezvoltare web",
   ],
+  // Fără `alternates.canonical` aici: s-ar moșteni pe paginile fără canonical propriu.
   openGraph: {
-    title: "Amorph Studio",
-    description:
-      "Studio multidisciplinar de design — planificare urbană, strategii urbane, regenerare urbană, design interior și graphic design.",
     type: "website",
+    siteName: SITE_NAME,
     locale: "ro_RO",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
   },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({

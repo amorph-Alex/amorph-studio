@@ -36,6 +36,8 @@ export interface JournalPost {
   date: string;
   /** Dată lungă pentru masthead-ul articolului, ex. „15 februarie 2026". */
   dateLong: string;
+  /** Data publicării, ISO (AAAA-LL-ZZ), pentru sitemap și metadata. */
+  published: string;
   author: string;
   authorRole: string;
   authorBio: string;
@@ -79,6 +81,7 @@ export const posts: JournalPost[] = [
     read: "4 min",
     date: "15 feb 2026",
     dateLong: "15 februarie 2026",
+    published: "2026-02-15",
     ...ANDRA,
     featured: false,
     image: THUMB,
@@ -152,6 +155,7 @@ export const posts: JournalPost[] = [
     read: "7 min",
     date: "02 feb 2026",
     dateLong: "2 februarie 2026",
+    published: "2026-02-02",
     ...ANDRA,
     featured: true,
     image: THUMB,
@@ -190,6 +194,7 @@ export const posts: JournalPost[] = [
     read: "6 min",
     date: "22 ian 2026",
     dateLong: "22 ianuarie 2026",
+    published: "2026-01-22",
     ...ANDRA,
     featured: false,
     image: THUMB,
@@ -223,6 +228,7 @@ export const posts: JournalPost[] = [
     read: "8 min",
     date: "14 ian 2026",
     dateLong: "14 ianuarie 2026",
+    published: "2026-01-14",
     ...VLAD,
     featured: false,
     image: THUMB,
@@ -256,6 +262,7 @@ export const posts: JournalPost[] = [
     read: "5 min",
     date: "08 ian 2026",
     dateLong: "8 ianuarie 2026",
+    published: "2026-01-08",
     ...MARIA,
     featured: false,
     image: THUMB,
@@ -289,6 +296,7 @@ export const posts: JournalPost[] = [
     read: "9 min",
     date: "21 dec 2025",
     dateLong: "21 decembrie 2025",
+    published: "2025-12-21",
     ...VLAD,
     featured: false,
     image: THUMB,

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/layout/Header";
@@ -8,11 +9,12 @@ import ServiciiFAQ from "@/components/sections/ServiciiFAQ";
 import type { FaqItem } from "@/lib/services";
 import { SHOW_SERVICE_PORTFOLIO } from "@/lib/flags";
 
-export const metadata: Metadata = {
-  title: "Graphic Design — identitate vizuală cu sens",
-  description:
-    "De la logo la sistem vizual complet. Identități, rebranding, print, social, signaletică și design pentru instituții — predăm sisteme pe care echipa ta le poate folosi singură.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Graphic design: identitate vizuală cu sens",
+  description: "De la logo la sistem vizual complet. Identități, rebranding, print, social, signaletică și design pentru instituții. Predăm sisteme pe care echipa ta le poate folosi singură.",
+  path: "/servicii/graphic-design",
+  ownOgImage: true,
+});
 
 const ArrowRight = ({
   size = 14,

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/layout/Header";
@@ -7,11 +8,12 @@ import AmorphBackdrop from "@/components/ui/AmorphBackdrop";
 import ServiciiFAQ from "@/components/sections/ServiciiFAQ";
 import type { FaqItem } from "@/lib/services";
 
-export const metadata: Metadata = {
-  title: "Dezvoltare web — site-uri, e-commerce, web apps",
-  description:
-    "Site-uri care chiar fac treabă: de la o pagină simplă până la platforme custom. Rapide, accesibile și ușor de întreținut.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Dezvoltare web: site-uri, e-commerce, web apps",
+  description: "Site-uri care chiar fac treabă: de la o pagină simplă până la platforme custom. Rapide, accesibile și ușor de întreținut.",
+  path: "/servicii/dezvoltare-web",
+  ownOgImage: true,
+});
 
 const ArrowRight = ({
   size = 14,

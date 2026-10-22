@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/layout/Header";
@@ -8,11 +9,12 @@ import ServiciiFAQ from "@/components/sections/ServiciiFAQ";
 import type { FaqItem } from "@/lib/services";
 import { SHOW_SERVICE_PORTFOLIO } from "@/lib/flags";
 
-export const metadata: Metadata = {
-  title: "Regenerare urbană — spații publice, parcuri, fronturi de apă",
-  description:
-    "Spații publice, parcuri, scuaruri, fronturi de apă, mobilier urban, zone reactivate. Lucrăm cu primării, ONG-uri și inițiative civice — pornind mereu de la cei care folosesc locul zilnic.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Regenerare urbană: spații publice, parcuri, fronturi de apă",
+  description: "Spații publice, parcuri, scuaruri, fronturi de apă, mobilier urban, zone reactivate. Lucrăm cu primării, ONG-uri și inițiative civice, pornind mereu de la cei care folosesc locul zilnic.",
+  path: "/servicii/regenerare-urbana",
+  ownOgImage: true,
+});
 
 const ArrowRight = ({
   size = 14,

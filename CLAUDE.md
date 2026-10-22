@@ -33,6 +33,7 @@ Site-ul de prezentare și motor de lead-uri al A-Morph Studio S.R.L. (urbanism, 
 - **Pagini de servicii**: fiecare e o pagină statică cu același tipar (hero, carduri de servicii, proces în 5 pași, principii, banner, FAQ, CTA). O pagină nouă copiază structura uneia existente și ia datele de bază din `services.ts`.
 - **Articol nou** (până la migrarea din roadmap C-02/C-03): o intrare nouă în `posts` din `journal.ts`, `n` incremental, `slug` fără diacritice, `id`-uri unice pe `heading` (devin ancore în TOC). Nu se inventează cifre, termene legale sau prețuri; Alex validează conținutul tehnic.
 - Imagini prin `next/image`, nu `<img>`.
+- **Metadata**: orice pagină nouă exportă `metadata = pageMetadata({ title, description, path })` din `src/lib/site.ts` (canonical + OG + Twitter). Dacă segmentul are `opengraph-image.tsx` propriu, adaugă `ownOgImage: true`. O pagină statică nouă se adaugă și în `staticPaths` din `src/app/sitemap.ts`. Domeniul canonic e `https://www.amorph.ro` (`SITE_URL`).
 - Formulare: câmpul honeypot se numește `hp_zx7` peste tot (nu `company` sau alte nume pe care browserul le completează automat).
 - Prețul analizei de teren apare în `src/app/analiza-teren/page.tsx` (`PRICE`) și în textele din `src/app/api/analiza-teren/route.ts`; se schimbă în ambele.
 - Nu se inventează conținut care angajează studioul (prețuri, termene, proiecte, testimoniale, nume de oameni).

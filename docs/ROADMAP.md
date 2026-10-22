@@ -1,7 +1,7 @@
 # ROADMAP amorph.ro
 
-Ultima actualizare: 2026-10-22 (sesiune Cowork: L-10 termeni serviciu plătit)
-Versiune: 1.4
+Ultima actualizare: 2026-10-22 (sesiune Cowork: T-10 + T-11 metadata, imagini de share, sitemap, robots)
+Versiune: 1.5
 
 ---
 
@@ -102,8 +102,8 @@ Scop: ca orice sesiune viitoare (Cowork sau Claude Code) să pornească informat
 
 Scop: să vedem ce se întâmplă pe site și să fim indexați corect. Toate sunt lucrări mici, cu impact mare, fără schimbări vizuale.
 
-- [ ] **T-10** (P1) `metadataBase` + canonical + OG image default (1200x630, generat din brand) în `layout.tsx`; OG/Twitter per pagină pentru servicii și articole.
-- [ ] **T-11** (P1) `app/sitemap.ts` (generat din `services.ts` + `journal.ts` + paginile statice, inclusiv `/analiza-teren`) și `app/robots.ts`. Verificare în Google Search Console după deploy.
+- [~] **T-10** (P1) *(2026-10-22: implementat în repo, build verde, necomis; așteaptă confirmarea lui Alex. Detalii în DECISIONS)* `metadataBase` + canonical + OG image default (1200x630, generat din brand) în `layout.tsx`; OG/Twitter per pagină pentru servicii și articole.
+- [~] **T-11** (P1) *(2026-10-22: `sitemap.xml` cu 21 de URL-uri + `robots.txt`, necomise; trimiterea în Search Console e T-12)* `app/sitemap.ts` (generat din `services.ts` + `journal.ts` + paginile statice, inclusiv `/analiza-teren`) și `app/robots.ts`. Verificare în Google Search Console după deploy.
 - [ ] **T-12** (P1) Google Search Console: proprietate pentru amorph.ro, verificare domeniu, trimitere sitemap. (Task manual pentru Alex; sesiunea pregătește pașii.)
 - [ ] **T-13** (P1) Analytics conform cu consimțământul de cookies existent: opțiunea recomandată este Vercel Analytics + Speed Insights (fără cookies, simplu) sau GA4 condiționat de `cookie-consent.ts`. Decizia se notează în `DECISIONS.md`. Evenimente minime: trimitere formular contact, **comandă analiză teren** (conversia principală acum), click pe telefon/email, click CTA „ofertă rapidă".
 - [ ] **T-14** (P2) JSON-LD: `Organization` + `LocalBusiness` (adresă, telefon, email, program) în layout; `Service` pe paginile de servicii; `Article` + `BreadcrumbList` pe articole; `FAQPage` pe secțiunile FAQ existente (ServiciiFAQ și FAQ-urile de pe paginile de servicii).
@@ -173,7 +173,7 @@ Scop: activarea `SHOW_SERVICE_PORTFOLIO` cu proiecte reale.
 2. ~~T-02 + T-03 docs/ și starea repo-ului~~ (livrat 2026-10-22)
 2b. ~~T-06 formularul de pe acasă~~ (livrat 2026-10-22)
 2c. ~~L-10 termeni pentru serviciul plătit~~ (livrat 2026-10-22)
-3. T-10 + T-11 metadata, sitemap, robots (o sesiune)
+3. T-10 + T-11 metadata, sitemap, robots (implementat 2026-10-22, de comis) → apoi T-12 Search Console (Alex, 10 minute)
 4. T-13 analytics (o sesiune)
 5. C-01 autori reali (sesiune scurtă, dar necesară înainte de orice conținut nou)
 6. L-01 persistarea lead-urilor (o sesiune; de aici încolo avem date)
@@ -197,6 +197,7 @@ După acestea, se alternează Etapa 2 (conținut) cu Etapa 3 (instrumente), cât
 
 | Data | Sesiune | Ce s-a întâmplat |
 |---|---|---|
+| 2026-10-22 | Cowork | T-10 + T-11 implementate în repo (necomise): `src/lib/site.ts` (`SITE_URL` = www, `pageMetadata` cu canonical, OG, Twitter) aplicat pe toate cele 15 pagini, inclusiv acasă (titlu nou „Amorph Studio: studio multidisciplinar de urbanism și design”); imagini de share generate la build cu `next/og` în brand (implicită, 6 servicii, 6 articole, analiza de teren cu prețul); `sitemap.ts` (21 URL-uri, articolele cu `published`) și `robots.ts`. Em dash scos din titlurile și descrierile de metadata. Capcana Next 16 cu imaginile OG notată în DECISIONS. `CLAUDE.md`: regula pentru metadata pe pagini noi. Build verde (44 rute statice), lint fără erori noi. Build făcut în containerul Cowork (discul VM-ului local e plin). |
 | 2026-10-22 | Cowork | L-10 în lucru: `/termeni` rescris (13 secțiuni; 03-10 pentru analiza de teren: ce este, încheierea contractului la trimiterea proformei, preț și plată, termen de 3 zile lucrătoare de la plată și documente, drept de retragere OUG 34/2014 cu model de formular, banii înapoi și deducerea, răspundere, reclamații ANPC/SAL). Formular: link spre `/termeni#analiza-teren` + bifă opțională pentru PF „începeți imediat” (cerere expresă). API: emailul intern arată versiunea termenilor, cererea expresă și ora; confirmarea către client conține informarea despre retragere și linkul spre termeni. Pagina: hero „de la plată și documente”, FAQ nou despre renunțare. Build verde (28 pagini), lint: doar erorile vechi din confidențialitate/cookies. Alex a acceptat textul (inclusiv proforma valabilă 5 zile lucrătoare, clauza de întârziere, deducerea doar pentru același teren, utilizarea raportului); comis și urcat pe `master`. Următorul pas recomandat: T-10 + T-11. |
 | 2026-10-22 | Claude Code + Cowork | Livrat L-12 (Resend pentru notificări interne, `acf59fc`), verificat de Alex cap-coadă. Repo-ul local sincronizat cu GitHub; comise `CLAUDE.md`, `docs/`, `.env.local.example` (variabile Resend). Următorul pas recomandat: L-10. |
 | 2026-10-22 | Claude Code + Cowork | Livrat `/analiza-teren` (L-09, adăugat și bifat) și T-06 în `7d1fed3`; fix honeypot în `8336712` (autofill Chrome). Live pe producție. Review: build verde (28 pagini), lint fără erori noi. Adăugate L-10 (termeni serviciu plătit), L-11 (flux intern comenzi); C-07 urcat la P1; T-11, T-13, L-01 extinse cu analiza de teren. Repo-ul local de pe PC-ul cu `docs/` e în urmă cu 2 commituri: `git pull` înainte de commit. |

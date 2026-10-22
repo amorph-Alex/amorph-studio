@@ -48,3 +48,16 @@ Jurnal scurt al deciziilor de arhitectură și al constatărilor de bază. O int
 - Canonical-ul iese relativ (`<link rel="canonical" href="/analiza-teren">`) pentru că `layout.tsx` nu are `metadataBase`. Se rezolvă global în T-10.
 - JSON-LD folosește `https://www.amorph.ro`; `amorph.ro` face redirect 308. Domeniul canonic e deci `www.amorph.ro`; T-10 și T-11 trebuie să-l folosească pe acesta.
 - În FAQ-ul de la planificare urbană, „amorph.ro/analiza-teren" e text simplu, nu link (pagina are însă link în meniu și footer).
+
+## Metadata, imagini de share, sitemap (T-10 + T-11, 2026-10-22)
+
+- Domeniul canonic e `https://www.amorph.ro` (`SITE_URL` în `src/lib/site.ts`); `metadataBase` în `layout.tsx`. `amorph.ro` face 308 spre www.
+- Fiecare pagină își declară metadata prin `pageMetadata({ title, description, path, ... })` din `src/lib/site.ts`: title, description, canonical absolut, Open Graph, Twitter `summary_large_image`. Layout-ul nu are canonical (s-ar moșteni greșit).
+- `og:title` pe paginile obișnuite primește „| Amorph Studio”; articolele și acasă rămân cu titlul curat.
+- Imaginile de share se generează la build cu `next/og` (`src/lib/og.tsx`, `renderOg`): implicită în `src/app/opengraph-image.tsx`, plus una pe fiecare serviciu, pe fiecare articol (cu titlul) și pe `/analiza-teren` (cu prețul). Font Comfortaa (OFL), instanțe statice 300/700 subsetate în `src/assets/og/`, logo 256 px.
+- Capcană Next 16 descoperită la build: o imagine pusă în `metadata.openGraph.images` câștigă în fața `opengraph-image.tsx` din segment, iar un `openGraph` fără imagine pierde imaginea din layout. De aceea `pageMetadata` pune imaginea implicită explicit, iar paginile cu fișier propriu trec `ownOgImage: true` (cheia `images` lipsește complet; `images: undefined` anulează și fișierul).
+- `src/app/sitemap.ts` se generează din lista de pagini statice + `services.ts` + `journal.ts` (`lastModified` = câmpul nou `published`, ISO, pe fiecare articol). Pagină statică nouă = adăugată în `staticPaths`.
+- `src/app/robots.ts`: totul permis, `/api/` blocat, link spre sitemap.
+- Ruta moartă `servicii/[slug]` generează în continuare `/servicii/design-interior` dublu; nu afectează sitemap-ul (T-08).
+- Lint după T-10/T-11: 3 erori + 1 warning, toate vechi (`legal/content.tsx`, `CookieConsent.tsx`); nimic nou.
+

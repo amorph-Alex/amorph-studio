@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/layout/Header";
@@ -12,11 +13,11 @@ import {
   serviciiFaq,
 } from "@/lib/services";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Servicii",
-  description:
-    "Șase discipline, o singură conversație. Planificare urbană, strategii urbane, regenerare urbană, design interior, graphic design și dezvoltare web.",
-};
+  description: "Șase discipline, o singură conversație. Planificare urbană, strategii urbane, regenerare urbană, design interior, graphic design și dezvoltare web.",
+  path: "/servicii",
+});
 
 const ArrowRight = ({ size = 14 }: { size?: number }) => (
   <svg

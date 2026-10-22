@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -8,19 +9,14 @@ import type { FaqItem } from "@/lib/services";
 
 const PRICE = 590;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Analiză teren: ce poți construi, preț fix 590 lei",
-  description:
-    "Afli în scris, în 3 zile lucrătoare, ce poți construi pe un teren: suprafață, niveluri, retrageri, restricții, pașii următori și dacă merită. Întocmită de urbanist atestat RUR. 590 lei cu TVA.",
-  alternates: { canonical: "/analiza-teren" },
-  openGraph: {
-    title: "Ce poți construi pe terenul tău? Analiză urbanistică la preț fix",
-    description:
-      "Suprafață construibilă, regim de înălțime, retrageri, restricții și verdict. 3 zile lucrătoare, 590 lei cu TVA.",
-    type: "website",
-    locale: "ro_RO",
-  },
-};
+  description: "Afli în scris, în 3 zile lucrătoare, ce poți construi pe un teren: suprafață, niveluri, retrageri, restricții, pașii următori și dacă merită. Întocmită de urbanist atestat RUR. 590 lei cu TVA.",
+  path: "/analiza-teren",
+  ogTitle: "Ce poți construi pe terenul tău? Analiză urbanistică la preț fix",
+  ogDescription: "Suprafață construibilă, regim de înălțime, retrageri, restricții și verdict. 3 zile lucrătoare, 590 lei cu TVA.",
+  ownOgImage: true,
+});
 
 const ArrowRight = ({ size = 14 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden>

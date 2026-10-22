@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import AmorphBackdrop from "@/components/ui/AmorphBackdrop";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Despre Noi",
-  description:
-    "Multi-disciplinari din necesitate. Doi ani up & running ca firmă, mai mult ca echipă. Urbanism, regenerare, design interior, grafică și web.",
-};
+  description: "Multi-disciplinari din necesitate. Doi ani up & running ca firmă, mai mult ca echipă. Urbanism, regenerare, design interior, grafică și web.",
+  path: "/despre-noi",
+});
 
 const ArrowRight = ({ size = 14 }: { size?: number }) => (
   <svg

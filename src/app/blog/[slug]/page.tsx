@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/layout/Header";
@@ -30,10 +31,15 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
-  return {
-    title: post?.title || "Articol Jurnal",
-    description: post?.excerpt || "",
-  };
+  if (!post) return { title: "Articol Jurnal" };
+  return pageMetadata({
+    title: post.title,
+    description: post.excerpt,
+    path: `/blog/${post.slug}`,
+    type: "article",
+    publishedTime: post.published,
+    ownOgImage: true,
+  });
 }
 
 const ArrowRight = ({ size = 13 }: { size?: number }) => (

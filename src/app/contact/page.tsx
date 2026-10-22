@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ContactMain from "@/components/sections/ContactMain";
@@ -6,11 +7,11 @@ import ServiciiFAQ from "@/components/sections/ServiciiFAQ";
 import AmorphBackdrop from "@/components/ui/AmorphBackdrop";
 import type { FaqItem } from "@/lib/services";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contact",
-  description:
-    "Hai să vorbim. Răspundem în maxim 24h. office@amorph.ro · +40 747 089 434",
-};
+  description: "Hai să vorbim. Răspundem în maxim 24h. office@amorph.ro · +40 747 089 434",
+  path: "/contact",
+});
 
 const ArrowRight = ({ size = 14 }: { size?: number }) => (
   <svg

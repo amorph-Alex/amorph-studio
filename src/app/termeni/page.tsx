@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import LegalPage from "@/components/legal/LegalPage";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Termeni și condiții",
-  description:
-    "Condițiile de utilizare a site-ului amorph.ro și a informațiilor publicate aici.",
-};
+  description: "Condițiile de utilizare a site-ului amorph.ro și a informațiilor publicate aici.",
+  path: "/termeni",
+});
 
 export default function TermeniPage() {
   return (

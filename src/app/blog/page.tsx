@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/layout/Header";
@@ -7,11 +8,11 @@ import NewsletterBand from "@/components/sections/NewsletterBand";
 import JournalFilter from "@/components/blog/JournalFilter";
 import { CATEGORIES, getAllPosts, getFeatured } from "@/lib/journal";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Jurnal",
-  description:
-    "Texte despre urbanism, design și lucrurile care fac orașele mai bune. Scriem când avem ceva de spus — nu prea des, dar bine.",
-};
+  description: "Texte despre urbanism, design și lucrurile care fac orașele mai bune. Scriem când avem ceva de spus: nu prea des, dar bine.",
+  path: "/blog",
+});
 
 const ArrowRight = ({ size = 13 }: { size?: number }) => (
   <svg

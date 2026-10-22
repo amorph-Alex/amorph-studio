@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/layout/Header";
@@ -8,11 +9,12 @@ import ServiciiFAQ from "@/components/sections/ServiciiFAQ";
 import type { FaqItem } from "@/lib/services";
 import { SHOW_SERVICE_PORTFOLIO } from "@/lib/flags";
 
-export const metadata: Metadata = {
-  title: "Strategii urbane — SDL, regenerare, politici",
-  description:
-    "Strategii care chiar se implementează: SDL, regenerare urbană, politici publice locale și studii de fundamentare — cu plan de acțiune realist.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Strategii urbane: SDL, regenerare, politici",
+  description: "Strategii care chiar se implementează: SDL, regenerare urbană, politici publice locale și studii de fundamentare, cu plan de acțiune realist.",
+  path: "/servicii/strategii-urbane",
+  ownOgImage: true,
+});
 
 const ArrowRight = ({
   size = 14,

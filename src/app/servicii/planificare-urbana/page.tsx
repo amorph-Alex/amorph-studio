@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/layout/Header";
@@ -8,11 +9,12 @@ import ServiciiFAQ from "@/components/sections/ServiciiFAQ";
 import type { FaqItem } from "@/lib/services";
 import { SHOW_SERVICE_PORTFOLIO } from "@/lib/flags";
 
-export const metadata: Metadata = {
-  title: "Planificare urbană — PUD, PUZ, PUG",
-  description:
-    "Documentații care chiar se aprobă: PUD, PUZ, PUG și studiile care le susțin. De la primul certificat de urbanism până la HCL.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Planificare urbană: PUD, PUZ, PUG",
+  description: "Documentații care chiar se aprobă: PUD, PUZ, PUG și studiile care le susțin. De la primul certificat de urbanism până la HCL.",
+  path: "/servicii/planificare-urbana",
+  ownOgImage: true,
+});
 
 const ArrowRight = ({
   size = 14,
