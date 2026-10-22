@@ -11,6 +11,7 @@ Site-ul de prezentare și motor de lead-uri al A-Morph Studio S.R.L. (urbanism, 
 - Next.js 16.2.2 (App Router, Turbopack), React 19.2.4, TypeScript 5, Tailwind CSS 4 (config în CSS, fără `tailwind.config`), ESLint 9 (flat config).
 - Emailuri: `src/lib/notify.ts`. Notificările interne (contact, comenzi) pleacă prin Resend de pe `comenzi@amorph.ro` (`RESEND_API_KEY`, `NOTIFY_FROM`), cu fallback pe SMTP Gmail; confirmările către client pleacă prin SMTP Gmail (nodemailer). Variabile în `.env.local`, model în `.env.local.example`, iar în producție în Vercel → Environment Variables.
 - Font: Comfortaa prin `next/font/google` (`--font-comfortaa`).
+- Analytics: Vercel Web Analytics + Speed Insights în `layout.tsx` (fără cookies). Planul e Hobby: `track()` (evenimente personalizate) nu se colectează, deci nu adăuga apeluri `track()` fără să schimbăm planul.
 - Next 16 are breaking changes față de ce știi: verifică în `node_modules/next/dist/docs/` înainte să folosești un API (metadata, `params` ca Promise, route handlers etc.).
 
 ## Structură

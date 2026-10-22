@@ -61,3 +61,12 @@ Jurnal scurt al deciziilor de arhitectură și al constatărilor de bază. O int
 - Ruta moartă `servicii/[slug]` generează în continuare `/servicii/design-interior` dublu; nu afectează sitemap-ul (T-08).
 - Lint după T-10/T-11: 3 erori + 1 warning, toate vechi (`legal/content.tsx`, `CookieConsent.tsx`); nimic nou.
 
+## Analytics (T-13, 2026-10-22; închide decizia D-3)
+
+- Ales: **Vercel Web Analytics + Speed Insights** (`@vercel/analytics` 2.0.1, `@vercel/speed-insights` 2.0.0), montate în `layout.tsx`. Fără cookies și fără date personale, deci nu trec prin `CookieConsent`. GA4 rămâne opțiune dacă vom avea nevoie de mai mult.
+- Planul Vercel e **Hobby**: 50.000 de evenimente (vizite) pe lună, istoric de 1 lună, **fără evenimente personalizate** (`track()` nu se colectează) și fără UTM. Speed Insights: gratuit, 10.000 de evenimente pe 30 de zile, doar scorul RES.
+- Conversiile (comenzi de analiză teren, mesaje de contact) se numără deocamdată din emailurile de notificare (L-12) și, ulterior, din store-ul de la L-01. Click-urile pe telefon/email nu se pot măsura pe Hobby.
+- Dacă vrem conversii în analytics fără Pro: pagini de confirmare dedicate (ex. `/analiza-teren/comanda-trimisa`, `noindex`), numărate ca vizite. Nu s-au făcut încă.
+- Web Analytics și Speed Insights trebuie activate o dată din dashboard-ul Vercel (proiect → Analytics → Enable; Speed Insights → Enable).
+- De verificat cu Alex: politica de confidențialitate ar putea menționa Vercel Analytics (măsurare anonimă, fără cookies). Textele juridice nu s-au atins.
+

@@ -1,7 +1,7 @@
 # ROADMAP amorph.ro
 
-Ultima actualizare: 2026-10-22 (sesiune Cowork: T-10 + T-11 metadata, imagini de share, sitemap, robots)
-Versiune: 1.5
+Ultima actualizare: 2026-10-22 (sesiune Cowork: T-10..T-12 livrate, T-13 Vercel Analytics)
+Versiune: 1.6
 
 ---
 
@@ -102,10 +102,10 @@ Scop: ca orice sesiune viitoare (Cowork sau Claude Code) să pornească informat
 
 Scop: să vedem ce se întâmplă pe site și să fim indexați corect. Toate sunt lucrări mici, cu impact mare, fără schimbări vizuale.
 
-- [~] **T-10** (P1) *(2026-10-22: implementat în repo, build verde, necomis; așteaptă confirmarea lui Alex. Detalii în DECISIONS)* `metadataBase` + canonical + OG image default (1200x630, generat din brand) în `layout.tsx`; OG/Twitter per pagină pentru servicii și articole.
-- [~] **T-11** (P1) *(2026-10-22: `sitemap.xml` cu 21 de URL-uri + `robots.txt`, necomise; trimiterea în Search Console e T-12)* `app/sitemap.ts` (generat din `services.ts` + `journal.ts` + paginile statice, inclusiv `/analiza-teren`) și `app/robots.ts`. Verificare în Google Search Console după deploy.
-- [ ] **T-12** (P1) Google Search Console: proprietate pentru amorph.ro, verificare domeniu, trimitere sitemap. (Task manual pentru Alex; sesiunea pregătește pașii.)
-- [ ] **T-13** (P1) Analytics conform cu consimțământul de cookies existent: opțiunea recomandată este Vercel Analytics + Speed Insights (fără cookies, simplu) sau GA4 condiționat de `cookie-consent.ts`. Decizia se notează în `DECISIONS.md`. Evenimente minime: trimitere formular contact, **comandă analiză teren** (conversia principală acum), click pe telefon/email, click CTA „ofertă rapidă".
+- [x] **T-10** (P1) *(2026-10-22: livrat în `a2df2d0`, verificat pe producție: canonical, OG/Twitter, imaginile de share. Detalii în DECISIONS)* `metadataBase` + canonical + OG image default (1200x630, generat din brand) în `layout.tsx`; OG/Twitter per pagină pentru servicii și articole.
+- [x] **T-11** (P1) *(2026-10-22: livrat în `a2df2d0`; live `sitemap.xml` cu 21 de URL-uri și `robots.txt`; trimiterea în Search Console e T-12)* `app/sitemap.ts` (generat din `services.ts` + `journal.ts` + paginile statice, inclusiv `/analiza-teren`) și `app/robots.ts`. Verificare în Google Search Console după deploy.
+- [x] **T-12** (P1) *(2026-10-22: proprietatea de tip Domeniu exista deja; `https://www.amorph.ro/sitemap.xml` trimis de Alex. La proprietăți Domeniu, sitemap-ul se trimite cu URL complet)* Google Search Console: proprietate pentru amorph.ro, verificare domeniu, trimitere sitemap. (Task manual pentru Alex; sesiunea pregătește pașii.)
+- [~] **T-13** (P1) *(2026-10-22: ales Vercel Analytics + Speed Insights, montate în `layout.tsx`, necomise; planul Hobby nu colectează evenimente personalizate, deci conversiile se numără din emailuri / L-01. Detalii în DECISIONS)* Analytics conform cu consimțământul de cookies existent: opțiunea recomandată este Vercel Analytics + Speed Insights (fără cookies, simplu) sau GA4 condiționat de `cookie-consent.ts`. Decizia se notează în `DECISIONS.md`. Evenimente minime: trimitere formular contact, **comandă analiză teren** (conversia principală acum), click pe telefon/email, click CTA „ofertă rapidă".
 - [ ] **T-14** (P2) JSON-LD: `Organization` + `LocalBusiness` (adresă, telefon, email, program) în layout; `Service` pe paginile de servicii; `Article` + `BreadcrumbList` pe articole; `FAQPage` pe secțiunile FAQ existente (ServiciiFAQ și FAQ-urile de pe paginile de servicii).
 - [ ] **T-15** (P2) Audit Lighthouse / Core Web Vitals pe acasă, o pagină de serviciu, un articol. Lista de probleme devine sub-taskuri (imagini PNG mari din `public/images` sunt suspectul principal: conversie la WebP/AVIF, dimensiuni corecte, `priority` pe hero).
 - [ ] **T-16** (P3) Pagină 404 personalizată (`app/not-found.tsx`) în stilul site-ului.
@@ -173,8 +173,8 @@ Scop: activarea `SHOW_SERVICE_PORTFOLIO` cu proiecte reale.
 2. ~~T-02 + T-03 docs/ și starea repo-ului~~ (livrat 2026-10-22)
 2b. ~~T-06 formularul de pe acasă~~ (livrat 2026-10-22)
 2c. ~~L-10 termeni pentru serviciul plătit~~ (livrat 2026-10-22)
-3. T-10 + T-11 metadata, sitemap, robots (implementat 2026-10-22, de comis) → apoi T-12 Search Console (Alex, 10 minute)
-4. T-13 analytics (o sesiune)
+3. ~~T-10 + T-11 metadata, sitemap, robots~~ (livrat 2026-10-22) + ~~T-12 Search Console~~ (livrat 2026-10-22)
+4. T-13 analytics (în lucru 2026-10-22: Vercel Analytics)
 5. C-01 autori reali (sesiune scurtă, dar necesară înainte de orice conținut nou)
 6. L-01 persistarea lead-urilor (o sesiune; de aici încolo avem date)
 
@@ -186,7 +186,7 @@ După acestea, se alternează Etapa 2 (conținut) cu Etapa 3 (instrumente), cât
 
 - **D-1** Store pentru lead-uri: Supabase vs Google Sheets vs Notion (vezi L-01).
 - **D-2** Motor de conținut: MDX + Keystatic vs CMS headless (vezi C-02).
-- **D-3** Analytics: Vercel Analytics vs GA4 (vezi T-13).
+- ~~**D-3** Analytics~~: decis 2026-10-22, Vercel Analytics + Speed Insights (plan Hobby, fără evenimente personalizate).
 - **D-4** Cine apare ca autor: doar Alex, sau și Anca (vezi C-01).
 - **D-5** Ce proiecte pot fi publicate și cu ce imagini (vezi P-01).
 - **D-6** Programări: Cal.com vs Google Calendar (vezi L-06).
@@ -197,6 +197,9 @@ După acestea, se alternează Etapa 2 (conținut) cu Etapa 3 (instrumente), cât
 
 | Data | Sesiune | Ce s-a întâmplat |
 |---|---|---|
+| 2026-10-22 | Cowork | T-13 în lucru: `@vercel/analytics` + `@vercel/speed-insights` în `layout.tsx` (fără cookies, nu depind de consimțământ). D-3 închisă. Proiectul Vercel e pe Hobby: fără `track()`; conversiile rămân în emailuri și în viitorul store L-01. Build verde, lint fără erori noi. Alex trebuie să activeze Web Analytics și Speed Insights în dashboard. |
+| 2026-10-22 | Cowork | T-12 închis: sitemap trimis în Search Console (proprietate Domeniu, URL complet cu www). Următorul pas recomandat: T-13 analytics. Modificările de roadmap sunt necomise (intră în commitul următor). |
+| 2026-10-22 | Cowork | T-10 + T-11 comise (`a2df2d0`), urcate de Alex și verificate pe producție (sitemap 21 URL-uri, robots, canonical, imagini de share). Search Console era deja configurat; T-12 se reduce la trimiterea sitemap-ului. Această modificare a roadmap-ului e necomisă (intră în commitul următor). |
 | 2026-10-22 | Cowork | T-10 + T-11 implementate în repo (necomise): `src/lib/site.ts` (`SITE_URL` = www, `pageMetadata` cu canonical, OG, Twitter) aplicat pe toate cele 15 pagini, inclusiv acasă (titlu nou „Amorph Studio: studio multidisciplinar de urbanism și design”); imagini de share generate la build cu `next/og` în brand (implicită, 6 servicii, 6 articole, analiza de teren cu prețul); `sitemap.ts` (21 URL-uri, articolele cu `published`) și `robots.ts`. Em dash scos din titlurile și descrierile de metadata. Capcana Next 16 cu imaginile OG notată în DECISIONS. `CLAUDE.md`: regula pentru metadata pe pagini noi. Build verde (44 rute statice), lint fără erori noi. Build făcut în containerul Cowork (discul VM-ului local e plin). |
 | 2026-10-22 | Cowork | L-10 în lucru: `/termeni` rescris (13 secțiuni; 03-10 pentru analiza de teren: ce este, încheierea contractului la trimiterea proformei, preț și plată, termen de 3 zile lucrătoare de la plată și documente, drept de retragere OUG 34/2014 cu model de formular, banii înapoi și deducerea, răspundere, reclamații ANPC/SAL). Formular: link spre `/termeni#analiza-teren` + bifă opțională pentru PF „începeți imediat” (cerere expresă). API: emailul intern arată versiunea termenilor, cererea expresă și ora; confirmarea către client conține informarea despre retragere și linkul spre termeni. Pagina: hero „de la plată și documente”, FAQ nou despre renunțare. Build verde (28 pagini), lint: doar erorile vechi din confidențialitate/cookies. Alex a acceptat textul (inclusiv proforma valabilă 5 zile lucrătoare, clauza de întârziere, deducerea doar pentru același teren, utilizarea raportului); comis și urcat pe `master`. Următorul pas recomandat: T-10 + T-11. |
 | 2026-10-22 | Claude Code + Cowork | Livrat L-12 (Resend pentru notificări interne, `acf59fc`), verificat de Alex cap-coadă. Repo-ul local sincronizat cu GitHub; comise `CLAUDE.md`, `docs/`, `.env.local.example` (variabile Resend). Următorul pas recomandat: L-10. |

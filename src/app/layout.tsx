@@ -3,6 +3,8 @@ import { Comfortaa } from "next/font/google";
 import "./globals.css";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
 import CookieConsent from "@/components/cookies/CookieConsent";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const comfortaa = Comfortaa({
   variable: "--font-comfortaa",
@@ -50,6 +52,10 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         {children}
         <CookieConsent />
+        {/* Vercel Web Analytics + Speed Insights: fără cookies și fără date personale,
+            deci nu depind de consimțământul din CookieConsent. Plan Hobby: doar vizite, fără evenimente. */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
