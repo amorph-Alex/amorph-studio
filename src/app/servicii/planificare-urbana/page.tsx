@@ -146,7 +146,7 @@ const URB_FAQ: FaqItem[] = [
   },
   {
     q: "Faceți și consultanță înainte de cumpărarea unui teren?",
-    a: "Da — și o recomandăm călduros. O analiză preliminară (1–2 săptămâni) te poate scuti de o achiziție proastă. Verificăm PUG, restricții, riscuri, indicatori realiști, posibile probleme cu vecinii sau cu rețelele.",
+    a: "Da, și o recomandăm călduros. Avem un serviciu dedicat, la preț fix: analiza de teren, 590 lei cu TVA, livrată în 3 zile lucrătoare. Verificăm PUG-ul sau PUZ-ul, restricțiile, riscurile, indicatorii și pașii următori. Detalii pe amorph.ro/analiza-teren.",
   },
   {
     q: "Ce se întâmplă dacă documentația mea e respinsă la comisie?",

@@ -46,6 +46,12 @@ export default function Footer() {
               planificare urbană
             </Link>
             <Link
+              href="/analiza-teren"
+              className="hover:text-accent transition-colors"
+            >
+              analiză teren
+            </Link>
+            <Link
               href="/servicii/strategii-urbane"
               className="hover:text-accent transition-colors"
             >

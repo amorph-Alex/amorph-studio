@@ -12,6 +12,7 @@ export default function ContactForm() {
     message: "",
   });
   const [formState, setFormState] = useState<FormState>("idle");
+  const [sendFailed, setSendFailed] = useState(false);
 
   const hasErrors =
     formData.name.trim() === "" || formData.email.trim() === "";
@@ -20,14 +21,28 @@ export default function ContactForm() {
     e.preventDefault();
 
     if (hasErrors) {
+      setSendFailed(false);
       setFormState("error");
       return;
     }
 
     setFormState("loading");
-    // Simulate API call — replace with real integration
-    await new Promise((r) => setTimeout(r, 1500));
-    setFormState("success");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, topic: "question", company: "" }),
+      });
+      if (!res.ok) {
+        setFormState("error");
+        setSendFailed(true);
+        return;
+      }
+      setFormState("success");
+    } catch {
+      setFormState("error");
+      setSendFailed(true);
+    }
   };
 
   const inputBase =
@@ -125,7 +140,9 @@ export default function ContactForm() {
         />
         {formState === "error" && (
           <p className="text-[13px] text-[#e04f3e] px-1">
-            Te rog completează câmpurile obligatorii marcate cu *.
+            {sendFailed
+              ? "Nu am putut trimite mesajul. Încearcă din nou sau scrie-ne la office@amorph.ro."
+              : "Te rog completează câmpurile obligatorii marcate cu *."}
           </p>
         )}
         <div className="flex justify-center pt-2">

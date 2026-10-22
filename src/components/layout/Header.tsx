@@ -21,6 +21,7 @@ const navLinks: {
 
 const serviceLinks = [
   { href: "/servicii/planificare-urbana", label: "planificare urbană" },
+  { href: "/analiza-teren", label: "analiză teren · 590 lei" },
   { href: "/servicii/strategii-urbane", label: "strategii urbane" },
   { href: "/servicii/regenerare-urbana", label: "regenerare urbană" },
   { href: "/servicii/design-interior", label: "design interior" },
