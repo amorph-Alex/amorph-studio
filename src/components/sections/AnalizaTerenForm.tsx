@@ -89,6 +89,7 @@ export default function AnalizaTerenForm() {
   const [use, setUse] = useState<UseId | "">("");
   const [clientType, setClientType] = useState<"pf" | "pj">("pf");
   const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [startNow, setStartNow] = useState(false);
   const [state, setState] = useState<FormState>("idle");
   const [error, setError] = useState("");
 
@@ -120,7 +121,14 @@ export default function AnalizaTerenForm() {
       const res = await fetch("/api/analiza-teren", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, purpose, use, clientType, acceptedTerms }),
+        body: JSON.stringify({
+          ...data,
+          purpose,
+          use,
+          clientType,
+          acceptedTerms,
+          startNow: clientType === "pf" && startNow,
+        }),
       });
       if (!res.ok) {
         setError("Ceva nu a mers. Încearcă din nou sau scrie-ne la office@amorph.ro.");
@@ -300,11 +308,29 @@ export default function AnalizaTerenForm() {
           className="mt-1 w-4 h-4 accent-[#2d2d2d] shrink-0"
         />
         <span>
-          Am citit <Link href="/termeni" className="underline hover:text-accent">termenii</Link> și{" "}
+          Am citit <Link href="/termeni#analiza-teren" className="underline hover:text-accent">termenii comenzii</Link>{" "}
+          (inclusiv dreptul de retragere) și{" "}
           <Link href="/confidentialitate" className="underline hover:text-accent">politica de confidențialitate</Link>.
           Înțeleg că analiza este informativă, nu înlocuiește certificatul de urbanism și că lucrul începe după plata facturii.
         </span>
       </label>
+
+      {clientType === "pf" && (
+        <label className="flex items-start gap-3 text-[13px] md:text-[14px] font-light text-foreground leading-[1.55] cursor-pointer -mt-2">
+          <input
+            type="checkbox"
+            checked={startNow}
+            onChange={(e) => setStartNow(e.target.checked)}
+            className="mt-1 w-4 h-4 accent-[#2d2d2d] shrink-0"
+          />
+          <span>
+            Opțional: vreau să începeți lucrul imediat după plată, fără să așteptați cele 14 zile de retragere.
+            Am înțeles că, după ce primesc analiza, nu mai am drept de retragere, iar dacă renunț înainte plătesc
+            doar partea deja lucrată.{" "}
+            <span className="text-muted">Dacă nu bifezi, începem după cele 14 zile.</span>
+          </span>
+        </label>
+      )}
 
       {state === "error" && <p className="text-[13px] text-[#e04f3e] px-1 -mt-2">{error}</p>}
 

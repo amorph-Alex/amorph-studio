@@ -1,7 +1,7 @@
 # ROADMAP amorph.ro
 
-Ultima actualizare: 2026-10-22 (sesiune Cowork: Resend + sincronizare repo)
-Versiune: 1.3
+Ultima actualizare: 2026-10-22 (sesiune Cowork: L-10 termeni serviciu plătit)
+Versiune: 1.4
 
 ---
 
@@ -137,7 +137,7 @@ Scop: vizitatorul găsește ceva util imediat, iar noi captăm și urmărim lead
 - [ ] **L-08** (P3) Dashboard intern de lead-uri (pagină protejată sau view în Supabase/Sheets) cu status: nou / contactat / ofertat / câștigat / pierdut.
 - [x] **L-09** (P1) *(2026-10-22: livrat în `7d1fed3`, adăugat în roadmap după livrare)* **Analiză teren la preț fix** (`/analiza-teren`): primul produs vândut direct de pe site. 590 lei cu TVA / parcelă, livrare în 3 zile lucrătoare, garanție banii înapoi, suma se scade din PUD/PUZ ulterior. Pagină cu ce primești (8 răspunsuri), secțiune despre Legea 169/2026, pași, garanții, FAQ, JSON-LD `Service` + `Offer`. Formular de comandă (teren, județ, nr. cadastral, situație, intenție, PF/PJ cu CUI, acceptare termeni) + `/api/analiza-teren` (email intern + confirmare automată către client). Link în meniu, footer și FAQ planificare urbană.
 - [x] **L-12** (P1) *(2026-10-22: livrat în `acf59fc`, verificat de Alex)* Notificări interne prin Resend de pe `comenzi@amorph.ro` (`src/lib/notify.ts`), cu fallback pe SMTP. Comenzile și mesajele de contact intră acum în Inbox ca emailuri noi.
-- [ ] **L-10** (P1) Termeni pentru serviciul plătit: `/termeni` nu acoperă încă vânzarea online a analizei (preț, plată pe proformă, termen de livrare, condiții de rambursare, dreptul de retragere pentru persoane fizice la contracte la distanță). De verificat cu un jurist; textul se adaugă în `legal/content.tsx` sau ca pagină dedicată, iar checkbox-ul din formular trimite acolo.
+- [x] **L-10** (P1) *(2026-10-22: livrat în commitul `L-10: termeni pentru analiza de teren`, text acceptat de Alex; recomandat: o trecere prin jurist și verificarea pictogramelor ANPC în footer)* Termeni pentru serviciul plătit: `/termeni` nu acoperă încă vânzarea online a analizei (preț, plată pe proformă, termen de livrare, condiții de rambursare, dreptul de retragere pentru persoane fizice la contracte la distanță). De verificat cu un jurist; textul se adaugă în `legal/content.tsx` sau ca pagină dedicată, iar checkbox-ul din formular trimite acolo.
 - [ ] **L-11** (P2) Flux intern pentru comenzile de analiză: șablon de proformă, șablon de raport PDF branded (8 secțiuni, aceeași ordine ca pe pagină), evidența comenzilor (intră în store-ul de la L-01).
 
 ### Etapa 4: Credibilitate: portofoliu și dovezi (când există materiale)
@@ -172,7 +172,7 @@ Scop: activarea `SHOW_SERVICE_PORTFOLIO` cu proiecte reale.
 1. ~~T-01 CLAUDE.md~~ (livrat 2026-10-22)
 2. ~~T-02 + T-03 docs/ și starea repo-ului~~ (livrat 2026-10-22)
 2b. ~~T-06 formularul de pe acasă~~ (livrat 2026-10-22)
-2c. **L-10 termeni pentru serviciul plătit** (acum că site-ul vinde)
+2c. ~~L-10 termeni pentru serviciul plătit~~ (livrat 2026-10-22)
 3. T-10 + T-11 metadata, sitemap, robots (o sesiune)
 4. T-13 analytics (o sesiune)
 5. C-01 autori reali (sesiune scurtă, dar necesară înainte de orice conținut nou)
@@ -197,6 +197,7 @@ După acestea, se alternează Etapa 2 (conținut) cu Etapa 3 (instrumente), cât
 
 | Data | Sesiune | Ce s-a întâmplat |
 |---|---|---|
+| 2026-10-22 | Cowork | L-10 în lucru: `/termeni` rescris (13 secțiuni; 03-10 pentru analiza de teren: ce este, încheierea contractului la trimiterea proformei, preț și plată, termen de 3 zile lucrătoare de la plată și documente, drept de retragere OUG 34/2014 cu model de formular, banii înapoi și deducerea, răspundere, reclamații ANPC/SAL). Formular: link spre `/termeni#analiza-teren` + bifă opțională pentru PF „începeți imediat” (cerere expresă). API: emailul intern arată versiunea termenilor, cererea expresă și ora; confirmarea către client conține informarea despre retragere și linkul spre termeni. Pagina: hero „de la plată și documente”, FAQ nou despre renunțare. Build verde (28 pagini), lint: doar erorile vechi din confidențialitate/cookies. Alex a acceptat textul (inclusiv proforma valabilă 5 zile lucrătoare, clauza de întârziere, deducerea doar pentru același teren, utilizarea raportului); comis și urcat pe `master`. Următorul pas recomandat: T-10 + T-11. |
 | 2026-10-22 | Claude Code + Cowork | Livrat L-12 (Resend pentru notificări interne, `acf59fc`), verificat de Alex cap-coadă. Repo-ul local sincronizat cu GitHub; comise `CLAUDE.md`, `docs/`, `.env.local.example` (variabile Resend). Următorul pas recomandat: L-10. |
 | 2026-10-22 | Claude Code + Cowork | Livrat `/analiza-teren` (L-09, adăugat și bifat) și T-06 în `7d1fed3`; fix honeypot în `8336712` (autofill Chrome). Live pe producție. Review: build verde (28 pagini), lint fără erori noi. Adăugate L-10 (termeni serviciu plătit), L-11 (flux intern comenzi); C-07 urcat la P1; T-11, T-13, L-01 extinse cu analiza de teren. Repo-ul local de pe PC-ul cu `docs/` e în urmă cu 2 commituri: `git pull` înainte de commit. |
 | 2026-10-22 | Cowork | Etapa 0 închisă: T-01 (`CLAUDE.md`), T-02 (`docs/DECISIONS.md`), T-03 (repo sincron cu producția, `c37cb48`), T-04 (build verde, lint 4 erori + 1 warning), T-05 (audit). Descoperit: formularul de pe acasă e simulat (T-06, urgent). Adăugate T-07, T-08. Corectat: jurnalul are 6 articole, nu 3. Fișierele noi din repo sunt încă necomise. |

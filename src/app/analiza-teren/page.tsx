@@ -75,6 +75,10 @@ const FAQ: FaqItem[] = [
     a: "Le facem și pe acestea. Dacă mergi mai departe cu noi pe o documentație de urbanism, cei 590 de lei se scad din onorariu.",
   },
   {
+    q: "Pot renunța după ce am comandat?",
+    a: "Da. Până plătești proforma, comanda nu te obligă la nimic. Dacă ești persoană fizică, ai și dreptul legal de retragere de 14 zile. Dacă ne ceri să începem imediat, după livrarea analizei nu mai ai acest drept. Toate detaliile sunt în termenii comenzii.",
+  },
+  {
     q: "Am mai multe terenuri de comparat.",
     a: "Fiecare parcelă este o analiză separată. Pentru trei sau mai multe terenuri, scrie-ne la office@amorph.ro și îți facem o ofertă.",
   },
@@ -145,7 +149,7 @@ export default function AnalizaTerenPage() {
                 <div>
                   <div className="text-[10px] md:text-[11px] tracking-[0.22em] opacity-60 mb-2">TERMEN</div>
                   <div className="text-[28px] md:text-[52px] font-bold leading-none">3 zile</div>
-                  <div className="text-[12px] md:text-[14px] font-light opacity-75 mt-1.5">lucrătoare, de la plată</div>
+                  <div className="text-[12px] md:text-[14px] font-light opacity-75 mt-1.5">lucrătoare, de la plată și documente</div>
                 </div>
                 <div className="col-span-2 md:col-span-1">
                   <div className="text-[10px] md:text-[11px] tracking-[0.22em] opacity-60 mb-2">CINE O FACE</div>

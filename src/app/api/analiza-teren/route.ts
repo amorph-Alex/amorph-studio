@@ -2,6 +2,10 @@ import { sendInternal, smtpTransport } from "@/lib/notify";
 
 export const runtime = "nodejs";
 
+// Data versiunii din /termeni (updatedAt în src/components/legal/content.tsx). Se schimbă împreună.
+const TERMS_VERSION = "22 octombrie 2026";
+const TERMS_URL = "https://www.amorph.ro/termeni#analiza-teren";
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const PURPOSES = {
@@ -67,6 +71,8 @@ export async function POST(request: Request) {
   const useRaw = str(body.use, 20);
   const clientTypeRaw = str(body.clientType, 5);
   const acceptedTerms = body.acceptedTerms === true;
+  // Cererea expresă de începere înainte de expirarea celor 14 zile (OUG 34/2014) are sens doar la consumatori.
+  const startNow = clientTypeRaw === "pf" && body.startNow === true;
 
   if (!name) return badRequest("name required");
   if (!email || !EMAIL_RE.test(email)) return badRequest("valid email required");
@@ -109,7 +115,16 @@ export async function POST(request: Request) {
           ["CUI", cui],
         ] as [string, string][])
       : []),
-    ["Acceptă termenii", "da"],
+    ["Acceptă termenii", `da, versiunea din ${TERMS_VERSION}`],
+    [
+      "Începere înainte de 14 zile",
+      clientTypeRaw === "pj"
+        ? "nu se aplică (firmă)"
+        : startNow
+          ? "DA, cerere expresă (pierde retragerea după livrare)"
+          : "NU, lucrul începe după 14 zile de la proformă",
+    ],
+    ["Primită la", new Date().toISOString()],
   ];
 
   const text = [
@@ -148,7 +163,22 @@ export async function POST(request: Request) {
     "Ce urmează:",
     "1. În cel mult o zi lucrătoare primești de la noi factura proformă (590 lei, TVA inclus).",
     "2. După plată, îți cerem pe email documentele pe care le ai: extrasul de carte funciară, certificatul de urbanism (dacă există), anunțul sau orice altă informație despre teren. Dacă nu ai nimic, pornim de la adresă și numărul cadastral.",
-    "3. În 3 zile lucrătoare de la plată și documente primești analiza în PDF.",
+    clientTypeRaw === "pf" && !startNow
+      ? "3. Primești analiza în PDF în 3 zile lucrătoare de la plată și documente, dar nu înainte să treacă cele 14 zile de retragere (vezi mai jos)."
+      : "3. În 3 zile lucrătoare de la plată și documente primești analiza în PDF.",
+    "",
+    ...(clientTypeRaw === "pf"
+      ? startNow
+        ? [
+            "Dreptul de retragere: ai cerut să începem lucrul imediat după plată. Dacă renunți înainte să livrăm, plătești doar partea deja lucrată și îți returnăm restul. După ce primești analiza, nu mai ai drept de retragere.",
+            "",
+          ]
+        : [
+            "Dreptul de retragere: ca persoană fizică, poți renunța la comandă fără motiv în 14 zile de la primirea proformei, cu o declarație trimisă pe email. Pentru că nu ne-ai cerut să începem imediat, începem lucrul după ce trec aceste 14 zile. Dacă vrei să începem mai repede, răspunde la acest email și scrie-ne explicit asta.",
+            "",
+          ]
+      : []),
+    `Termenii comenzii (versiunea din ${TERMS_VERSION}): ${TERMS_URL}`,
     "",
     "Dacă vrei să adaugi ceva, răspunde direct la acest email.",
     "",

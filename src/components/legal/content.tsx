@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 
 export type DocKey = "confidentialitate" | "cookies" | "termeni";
 
@@ -503,6 +504,8 @@ const COOKIES_SECTIONS: LegalSectionData[] = [
   },
 ];
 
+const LINK = "underline underline-offset-2 hover:text-accent transition-colors";
+
 const TERMENI_SECTIONS: LegalSectionData[] = [
   {
     id: "introducere-t",
@@ -511,10 +514,16 @@ const TERMENI_SECTIONS: LegalSectionData[] = [
     body: (
       <>
         <p>
-          Prezentele condiții reglementează accesul și utilizarea site-ului{" "}
-          {COMPANY.name} și a serviciilor oferite prin intermediul lui. Prin
-          accesarea site-ului confirmi că ai citit, ai înțeles și ești de acord cu
-          ele.
+          Acești termeni reglementează folosirea site-ului amorph.ro și comenzile
+          plasate prin el. Site-ul este operat de {COMPANY.name}, CUI {COMPANY.cui},
+          nr. de ordine în Registrul Comerțului {COMPANY.regCom}, cu sediul în{" "}
+          {COMPANY.address}, email{" "}
+          <a href={`mailto:${COMPANY.email}`} className={LINK}>{COMPANY.email}</a>,
+          telefon {COMPANY.phone}.
+        </p>
+        <p>
+          Secțiunile 03-10 se aplică doar analizei de teren comandate online.
+          Restul se aplică oricui folosește site-ul.
         </p>
       </>
     ),
@@ -526,55 +535,311 @@ const TERMENI_SECTIONS: LegalSectionData[] = [
     body: (
       <>
         <p>
-          Prin acest site prezentăm activitatea {COMPANY.name} — proiecte de
-          urbanism, design, dezvoltare web și consultanță. Orice colaborare
-          concretă este reglementată separat printr-un contract semnat între
-          părți.
+          Pe site prezentăm activitatea studioului: planificare urbană, strategii
+          și regenerare urbană, design interior, graphic design și dezvoltare web.
+          Pentru aceste servicii, informațiile de pe site nu sunt o ofertă fermă:
+          fiecare colaborare se stabilește printr-o ofertă și un contract separat,
+          semnat de ambele părți.
+        </p>
+        <p>
+          Singurul serviciu care se comandă direct de pe site este{" "}
+          <Link href="/analiza-teren" className={LINK}>analiza urbanistică a unui teren</Link>,
+          în condițiile de mai jos.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "analiza-teren",
+    number: "03",
+    title: "analiza de teren: ce este",
+    body: (
+      <>
+        <p>
+          Analiza de teren este un raport scris, în format PDF, întocmit de un
+          urbanist atestat RUR. Pentru o singură parcelă, răspunde la întrebările
+          descrise pe pagina serviciului: suprafața construibilă, regimul de
+          înălțime, funcțiunea, retragerile, restricțiile, documentația de
+          urbanism care se aplică, pașii următori și o recomandare argumentată.
+        </p>
+        <Callout label="important" tone="dark">
+          Analiza este informativă. Nu este un certificat de urbanism, nu este un
+          act emis de o autoritate și nu înlocuiește certificatul, avizele sau
+          autorizațiile cerute de lege. Nu este nici consultanță juridică: nu
+          verificăm situația juridică a proprietății și nici clauzele unui
+          antecontract.
+        </Callout>
+        <p>
+          Analiza se bazează pe documentele pe care ni le trimiți și pe
+          documentațiile de urbanism și legislația disponibile la data la care o
+          întocmim. Dacă acestea se schimbă după aceea (de exemplu, se aprobă un
+          PUZ nou sau se modifică legea), concluziile pot să nu mai fie valabile.
+        </p>
+        <p>
+          Întrebările de clarificare despre raport, trimise pe email, sunt incluse
+          în preț.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "comanda-t",
+    number: "04",
+    title: "cum se încheie contractul",
+    body: (
+      <>
+        <ul>
+          <li>
+            <strong>trimiți formularul de comandă</strong> de pe pagina analizei.
+            Comanda este o cerere și nu te obligă la plată. Îți confirmăm automat,
+            pe email, că am primit-o.
+          </li>
+          <li>
+            <strong>îți trimitem factura proformă</strong> pe email, în cel mult o
+            zi lucrătoare. Contractul se consideră încheiat în momentul în care îți
+            trimitem proforma.
+          </li>
+          <li>
+            <strong>putem refuza o comandă</strong> înainte de a trimite proforma
+            (de exemplu, dacă terenul nu poate fi identificat sau datele sunt
+            incomplete). Te anunțăm pe email și nu datorezi nimic.
+          </li>
+        </ul>
+        <p>
+          Contractul se încheie în limba română și este format din acești termeni,
+          în versiunea afișată la data comenzii, împreună cu datele din formular și
+          din proformă. Comanda, proforma și corespondența rămân în emailurile
+          noastre și ale tale; termenii îi poți salva sau tipări de pe această
+          pagină.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "pret-t",
+    number: "05",
+    title: "preț și plată",
+    body: (
+      <>
+        <ul>
+          <li>
+            Prețul este <strong>590 lei pentru o parcelă, TVA inclus</strong>.
+            Fiecare parcelă este o analiză separată.
+          </li>
+          <li>
+            Plata se face prin transfer bancar, în contul din factura proformă. Nu
+            încasăm plăți cu cardul pe site și nu stocăm date de plată.
+          </li>
+          <li>
+            Proforma este valabilă 5 zile lucrătoare. Dacă plata nu ajunge în acest
+            termen, comanda se anulează, fără nicio obligație pentru tine. O poți
+            plasa din nou oricând.
+          </li>
+          <li>După încasare îți trimitem factura fiscală.</li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    id: "livrare-t",
+    number: "06",
+    title: "termenul de livrare",
+    body: (
+      <>
+        <p>
+          Analiza se livrează în <strong>3 zile lucrătoare</strong>. Termenul
+          începe în ziua lucrătoare de după ce sunt îndeplinite ambele condiții:
+          plata a intrat în contul nostru și am primit documentele pe care le ai
+          despre teren (sau ne-ai confirmat că nu ai altele).
+        </p>
+        <p>
+          Dacă ești persoană fizică și nu ne-ai cerut să începem imediat (vezi
+          secțiunea 07), lucrul începe după ce expiră perioada de retragere de 14
+          zile.
+        </p>
+        <p>
+          Raportul se trimite pe email, în PDF. Dacă pe parcurs avem nevoie de o
+          informație de la tine, termenul se suspendă până ne răspunzi. Dacă nu
+          putem livra la timp din motive care țin de noi, te anunțăm înainte de
+          expirarea termenului, cu noua dată; dacă nu ești de acord cu ea, poți
+          renunța la comandă și îți returnăm integral suma.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "retragere-t",
+    number: "07",
+    title: "dreptul de retragere",
+    body: (
+      <>
+        <p>
+          Această secțiune se aplică dacă ești consumator, adică persoană fizică ce
+          comandă în afara activității profesionale. Comenzile facturate pe firmă
+          nu beneficiază de drept de retragere.
+        </p>
+        <p>
+          Conform OUG nr. 34/2014 privind drepturile consumatorilor, te poți
+          retrage din contract în <strong>14 zile calendaristice</strong> de la
+          încheierea lui (ziua în care îți trimitem proforma), fără să îți
+          motivezi decizia și fără alte costuri decât cele de mai jos.
+        </p>
+        <ul>
+          <li>
+            <strong>cum te retragi:</strong> ne trimiți o declarație clară pe email
+            la <a href={`mailto:${COMPANY.email}`} className={LINK}>{COMPANY.email}</a>{" "}
+            sau prin poștă la sediu, înainte să expire cele 14 zile. Poți folosi
+            modelul de mai jos, dar nu e obligatoriu.
+          </li>
+          <li>
+            <strong>ce primești înapoi:</strong> dacă ai plătit, îți returnăm suma
+            în cel mult 14 zile de la primirea declarației, prin transfer în contul
+            din care ai plătit, dacă nu convenim altfel.
+          </li>
+        </ul>
+        <Callout label="dacă vrei să începem imediat" tone="dark">
+          Ne poți cere expres, la comandă, să începem lucrul înainte să treacă
+          cele 14 zile. În acest caz, dacă te retragi după ce am început, dar
+          înainte să livrăm, plătești doar partea proporțională cu ce am lucrat
+          până atunci și îți returnăm restul. După ce îți livrăm analiza, nu mai
+          ai drept de retragere, pentru că serviciul a fost prestat complet la
+          cererea ta (art. 16 lit. a) din OUG nr. 34/2014). Dacă nu ne ceri asta,
+          începem lucrul după ce expiră cele 14 zile.
+        </Callout>
+        <Callout label="model de formular de retragere">
+          Către {COMPANY.name}, {COMPANY.address}, {COMPANY.email}.
+          <br />
+          Vă informez prin prezenta cu privire la retragerea mea din contractul
+          privind prestarea următorului serviciu: analiză urbanistică teren,
+          pentru terenul din […].
+          <br />
+          Comandat la data: […]. Numele consumatorului: […]. Adresa
+          consumatorului: […]. Data: […].
+        </Callout>
+      </>
+    ),
+  },
+  {
+    id: "garantii-t",
+    number: "08",
+    title: "banii înapoi și deducerea din onorariu",
+    body: (
+      <>
+        <ul>
+          <li>
+            <strong>banii înapoi:</strong> dacă nu putem găsi sau obține
+            documentațiile de urbanism care se aplică terenului (de exemplu,
+            PUG-ul localității nu e public și nu ni se pune la dispoziție), te
+            anunțăm și îți returnăm integral suma, în cel mult 14 zile de la data
+            la care te-am anunțat.
+          </li>
+          <li>
+            Garanția nu se aplică atunci când verdictul nu este cel pe care îl
+            așteptai: un răspuns negativ, argumentat, este o analiză livrată.
+          </li>
+          <li>
+            <strong>deducerea din onorariu:</strong> dacă, după analiză, încheiem
+            cu tine un contract pentru o documentație de urbanism (PUD, PUZ) sau
+            pentru proiectul unei construcții pe același teren, cei 590 de lei se
+            scad din onorariul acelui contract.
+          </li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    id: "raspundere-analiza",
+    number: "09",
+    title: "răspunderea pentru analiză",
+    body: (
+      <>
+        <p>
+          Întocmim analiza cu grija profesională a unui urbanist atestat și
+          răspundem pentru corectitudinea ei față de documentele și reglementările
+          pe care le indică drept surse.
+        </p>
+        <p>
+          Nu răspundem pentru informații greșite sau incomplete primite de la tine
+          sau de la autorități, pentru schimbările de reglementare de după data
+          analizei și nici pentru felul în care o autoritate interpretează
+          ulterior aceleași reglementări. Decizia de a cumpăra sau de a investi îți
+          aparține.
+        </p>
+        <p>
+          Dacă ești firmă, răspunderea noastră pentru analiză este limitată la
+          prețul plătit. Dacă ești consumator, acești termeni nu îți restrâng
+          drepturile pe care ți le dă legea.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "reclamatii-t",
+    number: "10",
+    title: "reclamații",
+    body: (
+      <>
+        <p>
+          Dacă nu ești mulțumit de comandă sau de analiză, scrie-ne la{" "}
+          <a href={`mailto:${COMPANY.email}`} className={LINK}>{COMPANY.email}</a>{" "}
+          și îți răspundem în scris.
+        </p>
+        <p>
+          Ca consumator, te poți adresa și Autorității Naționale pentru Protecția
+          Consumatorilor (
+          <a href="https://anpc.ro" target="_blank" rel="noopener noreferrer" className={LINK}>anpc.ro</a>
+          ), inclusiv prin procedura de{" "}
+          <a href="https://anpc.ro/ce-este-sal/" target="_blank" rel="noopener noreferrer" className={LINK}>soluționare alternativă a litigiilor (SAL)</a>.
         </p>
       </>
     ),
   },
   {
     id: "proprietate",
-    number: "03",
+    number: "11",
     title: "proprietate intelectuală",
     body: (
       <>
         <p>
-          Tot conținutul site-ului — texte, imagini, identitate vizuală, cod sursă
-          — este proprietatea {COMPANY.name} sau a colaboratorilor menționați și
-          este protejat de legislația privind dreptul de autor. Reproducerea,
-          parțială sau totală, fără acordul nostru scris este interzisă.
+          Conținutul site-ului (texte, imagini, identitate vizuală, cod sursă) este
+          proprietatea {COMPANY.name} sau a colaboratorilor menționați și este
+          protejat de legislația privind dreptul de autor. Reproducerea, parțială
+          sau totală, fără acordul nostru scris este interzisă.
+        </p>
+        <p>
+          Analiza de teren pe care o primești o poți folosi și arăta celor
+          implicați în decizia ta (vânzător, bancă, notar, proiectant). Nu o poți
+          publica sau revinde.
         </p>
       </>
     ),
   },
   {
     id: "raspundere",
-    number: "04",
-    title: "limitarea răspunderii",
+    number: "12",
+    title: "răspunderea pentru site",
     body: (
       <>
         <p>
-          Facem eforturi rezonabile pentru ca informațiile prezentate pe site să
-          fie corecte și actualizate. Cu toate acestea, conținutul este oferit
-          „așa cum este", fără garanții implicite. {COMPANY.name} nu răspunde
-          pentru eventualele daune indirecte rezultate din utilizarea site-ului.
+          Facem eforturi rezonabile ca informațiile de pe site, inclusiv
+          articolele, să fie corecte și actualizate, dar ele au caracter general
+          și nu țin locul unei analize a situației tale. {COMPANY.name} nu răspunde
+          pentru daunele indirecte rezultate din folosirea lor.
         </p>
       </>
     ),
   },
   {
     id: "legea-aplicabila",
-    number: "05",
+    number: "13",
     title: "legea aplicabilă",
     body: (
       <>
         <p>
-          Acestor termeni li se aplică legea română. Eventualele litigii vor fi
-          soluționate, în primul rând, pe cale amiabilă. În caz contrar, vor fi de
-          competența instanțelor judecătorești din circumscripția sediului{" "}
-          {COMPANY.name}.
+          Acestor termeni li se aplică legea română. Încercăm să rezolvăm orice
+          neînțelegere pe cale amiabilă. Dacă nu reușim, litigiile cu firmele sunt
+          de competența instanțelor din circumscripția sediului {COMPANY.name}, iar
+          pentru consumatori instanța competentă se stabilește potrivit legii.
         </p>
       </>
     ),
@@ -610,9 +875,9 @@ export const DOCS: Record<DocKey, LegalDoc> = {
     eyebrow: "legal · contractual",
     titleLead: "termeni și",
     titleBold: "condiții",
-    updatedAt: "15 mai 2026",
+    updatedAt: "22 octombrie 2026",
     intro:
-      "Acești termeni reglementează utilizarea site-ului și a informațiilor publicate aici. Te rugăm să îi citești cu atenție — prin folosirea site-ului confirmi că ești de acord cu ei.",
+      "Acești termeni reglementează folosirea site-ului și comenzile pentru analiza de teren plasate prin el. Te rugăm să îi citești cu atenție înainte să comanzi.",
     sections: TERMENI_SECTIONS,
   },
 };
