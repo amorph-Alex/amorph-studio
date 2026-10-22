@@ -73,7 +73,7 @@ export default function Header() {
             <Link href="/" className="flex items-center gap-4">
               <Image
                 src="/images/logo.png"
-                alt="Amorph Studio"
+                alt=""
                 width={150}
                 height={150}
                 className="w-[80px] h-[80px] md:w-[150px] md:h-[150px]"

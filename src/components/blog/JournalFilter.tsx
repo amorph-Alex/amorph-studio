@@ -128,7 +128,7 @@ export default function JournalFilter({
                 <div className="aspect-[4/3] overflow-hidden rounded-[18px] border-[1.5px] border-dark-card relative">
                   <Image
                     src={p.image}
-                    alt={p.title}
+                    alt=""
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover transition-transform duration-300 group-hover:scale-[1.04]"

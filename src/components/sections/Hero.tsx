@@ -75,6 +75,7 @@ export default function Hero() {
                   src={service.image}
                   alt={service.title}
                   fill
+                  sizes="125px"
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
@@ -88,10 +89,14 @@ export default function Hero() {
         {services.map((service, i) => (
           <Link key={service.title} href={service.href} className="group block">
             <div className="relative h-[168px] rounded-[22px] overflow-hidden border border-dark-card">
+              {/* Pe mobil primele două carduri sunt deasupra pliului (unul dintre ele e LCP): se încarcă imediat, cu prioritate. */}
               <Image
                 src={service.image}
-                alt={service.title}
+                alt=""
                 fill
+                sizes="100vw"
+                loading={i < 2 ? "eager" : "lazy"}
+                fetchPriority={i < 2 ? "high" : "auto"}
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
               {/* Gradient overlay */}

@@ -17,7 +17,7 @@ export default function BlogPreview() {
             <div className="aspect-square rounded-none overflow-hidden mb-4">
               <Image
                 src={post.image}
-                alt={post.title}
+                alt=""
                 width={300}
                 height={300}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"

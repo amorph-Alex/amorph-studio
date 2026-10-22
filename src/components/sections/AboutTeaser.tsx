@@ -11,6 +11,7 @@ export default function AboutTeaser() {
             alt="Echipa Amorph Studio"
             width={459}
             height={300}
+            sizes="(max-width: 768px) 100vw, 459px"
             className="w-full max-w-[459px] h-auto"
           />
         </div>
