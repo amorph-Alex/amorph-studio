@@ -36,7 +36,7 @@ export default function ContactMain() {
     email: "",
     phone: "",
     message: "",
-    company: "",
+    hp_zx7: "",
   });
   const [formState, setFormState] = useState<FormState>("idle");
   const [errorMessage, setErrorMessage] = useState<string>(
@@ -67,7 +67,7 @@ export default function ContactMain() {
         setFormState("error");
         return;
       }
-      setFormData({ name: "", email: "", phone: "", message: "", company: "" });
+      setFormData({ name: "", email: "", phone: "", message: "", hp_zx7: "" });
       setFormState("success");
     } catch {
       setErrorMessage(
@@ -193,13 +193,13 @@ export default function ContactMain() {
               <input type="hidden" name="topic" value={topic} />
               <input
                 type="text"
-                name="company"
+                name="hp_zx7"
                 tabIndex={-1}
                 autoComplete="off"
                 aria-hidden="true"
-                value={formData.company}
+                value={formData.hp_zx7}
                 onChange={(e) =>
-                  setFormData({ ...formData, company: e.target.value })
+                  setFormData({ ...formData, hp_zx7: e.target.value })
                 }
                 style={{
                   position: "absolute",

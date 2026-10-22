@@ -43,7 +43,7 @@ const initial = {
   notes: "",
   companyName: "",
   cui: "",
-  company_hp: "",
+  hp_zx7: "",
 };
 
 function Pills<T extends string>({
@@ -159,12 +159,12 @@ export default function AnalizaTerenForm() {
     <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate>
       <input
         type="text"
-        name="company_hp"
+        name="hp_zx7"
         tabIndex={-1}
         autoComplete="off"
         aria-hidden="true"
-        value={data.company_hp}
-        onChange={set("company_hp")}
+        value={data.hp_zx7}
+        onChange={set("hp_zx7")}
         style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }}
       />
 

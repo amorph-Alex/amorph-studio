@@ -47,7 +47,10 @@ export async function POST(request: Request) {
   }
 
   // Honeypot
-  if (str(body.company_hp) !== "") return Response.json({ ok: true });
+  if (str(body.hp_zx7) !== "") {
+    console.warn("analiza-teren: honeypot hit, comanda ignorată");
+    return Response.json({ ok: true });
+  }
 
   const name = str(body.name, 120);
   const email = str(body.email, 200);
@@ -162,13 +165,19 @@ export async function POST(request: Request) {
   ].join("\n");
 
   try {
-    await transporter.sendMail({
+    const info = await transporter.sendMail({
       from: `A-Morph Website <${SMTP_USER}>`,
       to: CONTACT_TO,
       replyTo: `${name} <${email}>`,
       subject: `[analiză teren] ${location}, ${county} · ${name}`,
       text,
       html,
+    });
+    console.info("analiza-teren: email intern trimis", {
+      messageId: info.messageId,
+      accepted: info.accepted?.length ?? 0,
+      rejected: info.rejected?.length ?? 0,
+      response: info.response,
     });
   } catch (err) {
     console.error("analiza-teren: internal sendMail failed", err);

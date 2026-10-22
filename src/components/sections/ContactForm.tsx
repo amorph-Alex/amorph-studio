@@ -31,7 +31,7 @@ export default function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, topic: "question", company: "" }),
+        body: JSON.stringify({ ...formData, topic: "question", hp_zx7: "" }),
       });
       if (!res.ok) {
         setFormState("error");

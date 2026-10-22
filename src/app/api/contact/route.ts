@@ -20,7 +20,7 @@ type Payload = {
   phone?: unknown;
   message?: unknown;
   topic?: unknown;
-  company?: unknown;
+  hp_zx7?: unknown;
 };
 
 function badRequest(message: string) {
@@ -40,7 +40,8 @@ export async function POST(request: Request) {
   }
 
   // Honeypot — boții completează câmpuri ascunse. Răspundem 200 ca să nu îi învățăm.
-  if (typeof body.company === "string" && body.company.trim() !== "") {
+  if (typeof body.hp_zx7 === "string" && body.hp_zx7.trim() !== "") {
+    console.warn("contact: honeypot hit, mesaj ignorat");
     return Response.json({ ok: true });
   }
 
@@ -114,6 +115,7 @@ export async function POST(request: Request) {
       text: lines.join("\n"),
       html,
     });
+    console.info("contact: email trimis");
   } catch (err) {
     console.error("contact: sendMail failed", err);
     return Response.json({ error: "send failed" }, { status: 500 });
