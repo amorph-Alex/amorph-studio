@@ -87,3 +87,14 @@ Jurnal scurt al deciziilor de arhitectură și al constatărilor de bază. O int
 - Next pune singur `<meta name="robots" content="noindex">` pe răspunsurile 404; pagina nu mai declară `robots` (ar fi dublat tagul).
 - `/blog/[slug]` cu slug necunoscut cheamă `notFound()` (înainte afișa „Articol în curând” cu status 200, adică „soft 404” pentru Google).
 
+## Viteză și accesibilitate (T-15 + T-15a, 2026-10-22)
+
+- Lighthouse 12 pe producție, mobil / desktop: acasă 97 / 100 (LCP mobil 2,3 s), `/servicii/planificare-urbana` 91 / 100 (3,2 s), articolul despre certificatul de urbanism 95 / 100 (2,7 s). CLS 0 peste tot, TBT ≤ 180 ms. SEO și Best Practices 100. Accesibilitate 95-99.
+- PNG-urile din `public/images` nu sunt o problemă: `next/image` + Vercel le livrează ca WebP/AVIF la dimensiunea cerută. Nu le convertim manual.
+- Paginile de servicii și articolele aveau deja `priority` pe imaginea din hero (preload în `<head>`). În Next 16, `priority` e depreciat în favoarea `preload`; funcționează încă, se poate înlocui la un upgrade.
+- Acasă pe mobil, LCP era un card din hero cu `loading="lazy"`. Acum primele două carduri mobile au `loading="eager"` + `fetchPriority="high"` (nu `preload`, pentru că lista mobilă e ascunsă pe desktop). Măsurat local, 3 rulări pe variantă: LCP median 3,75 s → 3,15 s; varianta cu un singur card prioritar a ieșit 3,55 s.
+- Imaginile `fill` fără `sizes` (hero acasă) se descărcau la lățimea ecranului; acum `sizes="125px"` pe desktop și `100vw` pe mobil. AboutTeaser: `sizes` ca să nu descarce 459 px la 2x pe mobil.
+- `alt=""` pe imaginile decorative care stau în același link cu un text identic (logo lângă „amorph studio”, carduri de articole). În hero-ul desktop linkul conține doar imaginea, deci `alt` rămâne acolo (altfel linkul n-ar avea nume).
+- Rămas deschis: contrastul tokenului `muted` (T-15b) și 53 KiB de JavaScript „nefolosit” raportat de Lighthouse, care e runtime-ul Next/React (nu se poate scoate fără schimbări de arhitectură).
+- T-15b (acceptat de Alex): `--muted` din `globals.css` trece de la #6b6b6b la #5c5c5c (pe #d9d9d9: 3,78:1 → 4,74:1, peste pragul WCAG AA de 4,5:1 pentru text mic). Verificat cu un script pe 15 pagini, desktop + 390 px: niciun text `muted` sub 4,5:1. Fereastra de cookies (`CookieConsent.tsx`) și emailurile interne au #6b6b6b scris direct și rămân așa (cookies e pe fundal închis, unde nuanța mai deschisă e mai lizibilă). Textul galben (#f6aa1c) pe gri rămâne sub prag (1,39:1), e accentul de brand și e acceptat ca atare.
+

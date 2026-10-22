@@ -1,7 +1,7 @@
 # ROADMAP amorph.ro
 
-Ultima actualizare: 2026-10-22 (sesiune Cowork: T-14 livrat, T-16 comis)
-Versiune: 1.9
+Ultima actualizare: 2026-10-22 (sesiune Cowork: T-15a + T-15b comise)
+Versiune: 2.1
 
 ---
 
@@ -107,8 +107,10 @@ Scop: să vedem ce se întâmplă pe site și să fim indexați corect. Toate su
 - [x] **T-12** (P1) *(2026-10-22: proprietatea de tip Domeniu exista deja; `https://www.amorph.ro/sitemap.xml` trimis de Alex. La proprietăți Domeniu, sitemap-ul se trimite cu URL complet)* Google Search Console: proprietate pentru amorph.ro, verificare domeniu, trimitere sitemap. (Task manual pentru Alex; sesiunea pregătește pașii.)
 - [x] **T-13** (P1) *(2026-10-22: livrat în `cb6ebe6`, Vercel Analytics + Speed Insights activate în dashboard și verificate de Alex; planul Hobby nu colectează evenimente personalizate, deci conversiile se numără din emailuri / L-01. Detalii în DECISIONS)* Analytics conform cu consimțământul de cookies existent: opțiunea recomandată este Vercel Analytics + Speed Insights (fără cookies, simplu) sau GA4 condiționat de `cookie-consent.ts`. Decizia se notează în `DECISIONS.md`. Evenimente minime: trimitere formular contact, **comandă analiză teren** (conversia principală acum), click pe telefon/email, click CTA „ofertă rapidă".
 - [x] **T-14** (P2) *(2026-10-22: livrat în `eaccc02`, verificat de Alex în Rich Results Test fără probleme. Detalii în DECISIONS)* JSON-LD: `Organization` + `LocalBusiness` (adresă, telefon, email, program) în layout; `Service` pe paginile de servicii; `Article` + `BreadcrumbList` pe articole; `FAQPage` pe secțiunile FAQ existente (ServiciiFAQ și FAQ-urile de pe paginile de servicii).
-- [ ] **T-15** (P2) Audit Lighthouse / Core Web Vitals pe acasă, o pagină de serviciu, un articol. Lista de probleme devine sub-taskuri (imagini PNG mari din `public/images` sunt suspectul principal: conversie la WebP/AVIF, dimensiuni corecte, `priority` pe hero).
-- [~] **T-16** (P3) *(2026-10-22: comis în `T-16: pagina 404`; verificat local desktop + 390px, status 404 + `noindex`; de verificat pe producție după push)* Pagină 404 personalizată (`app/not-found.tsx`) în stilul site-ului.
+- [x] **T-15** (P2) *(2026-10-22: audit făcut pe producție; rezultatele și concluziile în DECISIONS)* Audit Lighthouse / Core Web Vitals pe acasă, o pagină de serviciu, un articol. Lista de probleme devine sub-taskuri (imagini PNG mari din `public/images` sunt suspectul principal: conversie la WebP/AVIF, dimensiuni corecte, `priority` pe hero).
+  - [~] **T-15a** (P2) *(2026-10-22: comis, acceptat de Alex; de verificat pe producție după push)* Acasă pe mobil: primele două carduri din hero se încarcă imediat (`loading="eager"`, `fetchPriority="high"`), erau lazy deși unul e LCP; `sizes` pe imaginile din hero și din AboutTeaser; `alt=""` pe imaginile care dublează textul de lângă ele (logo, carduri de articole). Accesibilitate acasă 99 → 100 (local).
+  - [~] **T-15b** (P3) *(2026-10-22: comis, acceptat de Alex: `--muted` = #5c5c5c în `globals.css`; verificat pe 15 pagini × 2 lățimi, niciun text `muted` sub 4,5:1; rămâne doar galbenul de brand. De verificat pe producție după push)* Contrast: tokenul `muted` (#6b6b6b pe #d9d9d9 = 3,78:1) e sub pragul WCAG de 4,5:1 pentru textul mic (etichete, date, firimituri). Propunere: #5c5c5c (4,74:1), o schimbare de nuanță abia vizibilă, pe tot site-ul. Alex decide. Textul galben pe gri (accentul de brand) rămâne, e alegere de design.
+- [x] **T-16** (P3) *(2026-10-22: livrat în `3d3ca24`; verificat pe producție: `/nu-exista` și `/blog/orice` dau 404 + `noindex` cu pagina nouă)* Pagină 404 personalizată (`app/not-found.tsx`) în stilul site-ului.
 
 ### Etapa 2: Conținut și motor editorial (continuu, pornit după Etapa 1)
 
@@ -197,6 +199,8 @@ După acestea, se alternează Etapa 2 (conținut) cu Etapa 3 (instrumente), cât
 
 | Data | Sesiune | Ce s-a întâmplat |
 |---|---|---|
+| 2026-10-22 | Cowork | Alex a acceptat T-15a și T-15b; comise separat (`T-15a`, `T-15b`), un singur push. Tokenul `muted` devine #5c5c5c (contrast 4,74:1). După verificarea pe producție, Etapa 1 e închisă; următorul pas recomandat: C-01 autori reali, apoi L-01 persistarea lead-urilor. |
+| 2026-10-22 | Cowork | T-16 verificat pe producție și bifat. T-15: Lighthouse pe producție (acasă, planificare urbană, articol): mobil 97 / 91 / 95, desktop 100 peste tot; SEO și Best Practices 100; accesibilitate 95-99. Imaginile PNG nu sunt o problemă (Vercel le servește ca WebP/AVIF). Adăugate T-15a (LCP pe acasă, `sizes`, alt-uri, implementat, necomis) și T-15b (contrastul tokenului `muted`, decizia lui Alex). Etapa 1 se închide după T-15a. |
 | 2026-10-22 | Cowork | T-14 livrat: Alex a verificat în Rich Results Test, fără erori. T-16 comis (cu această actualizare de roadmap). Din Etapa 1 rămâne T-15 (Lighthouse / imagini). |
 | 2026-10-22 | Cowork | T-14 comis și urcat (`eaccc02`), așteaptă Rich Results Test. T-16 implementat (necomis): `src/app/not-found.tsx` (titlu „pagina asta nu există”, buton acasă, 4 sugestii: servicii, analiza de teren, jurnal, contact). Reparat și „soft 404” pe articole: `/blog/<slug-inexistent>` răspundea 200 cu „Articol în curând”, acum dă `notFound()` (404 + `noindex`). Build verde, lint = baseline. |
 | 2026-10-22 | Cowork | T-14 implementat (necomis): `src/lib/jsonld.ts` + `src/components/seo/JsonLd.tsx`. Pe toate paginile: firma (`ProfessionalService`, subtip `LocalBusiness`) + `WebSite`, cu `@id` fix. Servicii (6 + analiza de teren): `Service` + `BreadcrumbList` + `FAQPage`; `/servicii` și `/contact`: `BreadcrumbList` + `FAQPage`; articole: `BlogPosting` + `BreadcrumbList`, autor = studioul până la C-01. `COMPANY` mutat în `site.ts` (textele juridice neschimbate). Fără program și fără `priceRange` (de confirmat de Alex). Build verde, lint = baseline. Urmează: commit, push, test în Rich Results Test. |
