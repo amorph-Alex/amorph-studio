@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { pageMetadata } from "@/lib/site";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import Image from "next/image";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -187,23 +188,8 @@ export default async function BlogPost({ params }: PageProps) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
 
-  if (!post) {
-    return (
-      <>
-        <Header />
-        <main className="flex-1 max-w-[1400px] mx-auto px-5 md:px-14 py-16">
-          <h1 className="text-4xl font-bold mb-4">Articol în curând</h1>
-          <p className="text-muted mb-8">
-            Acest articol va fi disponibil în curând.
-          </p>
-          <Link href="/blog" className="text-accent hover:underline">
-            ← Înapoi la jurnal
-          </Link>
-        </main>
-        <Footer />
-      </>
-    );
-  }
+  // Slug necunoscut: 404 real (app/not-found.tsx), nu o pagină „în curând” cu status 200.
+  if (!post) notFound();
 
   const toc = tocFromContent(post.content);
   const related = getRelated(post);

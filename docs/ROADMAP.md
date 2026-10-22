@@ -1,7 +1,7 @@
 # ROADMAP amorph.ro
 
-Ultima actualizare: 2026-10-22 (sesiune Cowork: T-14 JSON-LD implementat)
-Versiune: 1.7
+Ultima actualizare: 2026-10-22 (sesiune Cowork: T-14 livrat, T-16 comis)
+Versiune: 1.9
 
 ---
 
@@ -106,9 +106,9 @@ Scop: să vedem ce se întâmplă pe site și să fim indexați corect. Toate su
 - [x] **T-11** (P1) *(2026-10-22: livrat în `a2df2d0`; live `sitemap.xml` cu 21 de URL-uri și `robots.txt`; trimiterea în Search Console e T-12)* `app/sitemap.ts` (generat din `services.ts` + `journal.ts` + paginile statice, inclusiv `/analiza-teren`) și `app/robots.ts`. Verificare în Google Search Console după deploy.
 - [x] **T-12** (P1) *(2026-10-22: proprietatea de tip Domeniu exista deja; `https://www.amorph.ro/sitemap.xml` trimis de Alex. La proprietăți Domeniu, sitemap-ul se trimite cu URL complet)* Google Search Console: proprietate pentru amorph.ro, verificare domeniu, trimitere sitemap. (Task manual pentru Alex; sesiunea pregătește pașii.)
 - [x] **T-13** (P1) *(2026-10-22: livrat în `cb6ebe6`, Vercel Analytics + Speed Insights activate în dashboard și verificate de Alex; planul Hobby nu colectează evenimente personalizate, deci conversiile se numără din emailuri / L-01. Detalii în DECISIONS)* Analytics conform cu consimțământul de cookies existent: opțiunea recomandată este Vercel Analytics + Speed Insights (fără cookies, simplu) sau GA4 condiționat de `cookie-consent.ts`. Decizia se notează în `DECISIONS.md`. Evenimente minime: trimitere formular contact, **comandă analiză teren** (conversia principală acum), click pe telefon/email, click CTA „ofertă rapidă".
-- [~] **T-14** (P2) *(2026-10-22: implementat, necomis; build verde, lint fără erori noi. Detalii în DECISIONS)* JSON-LD: `Organization` + `LocalBusiness` (adresă, telefon, email, program) în layout; `Service` pe paginile de servicii; `Article` + `BreadcrumbList` pe articole; `FAQPage` pe secțiunile FAQ existente (ServiciiFAQ și FAQ-urile de pe paginile de servicii).
+- [x] **T-14** (P2) *(2026-10-22: livrat în `eaccc02`, verificat de Alex în Rich Results Test fără probleme. Detalii în DECISIONS)* JSON-LD: `Organization` + `LocalBusiness` (adresă, telefon, email, program) în layout; `Service` pe paginile de servicii; `Article` + `BreadcrumbList` pe articole; `FAQPage` pe secțiunile FAQ existente (ServiciiFAQ și FAQ-urile de pe paginile de servicii).
 - [ ] **T-15** (P2) Audit Lighthouse / Core Web Vitals pe acasă, o pagină de serviciu, un articol. Lista de probleme devine sub-taskuri (imagini PNG mari din `public/images` sunt suspectul principal: conversie la WebP/AVIF, dimensiuni corecte, `priority` pe hero).
-- [ ] **T-16** (P3) Pagină 404 personalizată (`app/not-found.tsx`) în stilul site-ului.
+- [~] **T-16** (P3) *(2026-10-22: comis în `T-16: pagina 404`; verificat local desktop + 390px, status 404 + `noindex`; de verificat pe producție după push)* Pagină 404 personalizată (`app/not-found.tsx`) în stilul site-ului.
 
 ### Etapa 2: Conținut și motor editorial (continuu, pornit după Etapa 1)
 
@@ -197,6 +197,8 @@ După acestea, se alternează Etapa 2 (conținut) cu Etapa 3 (instrumente), cât
 
 | Data | Sesiune | Ce s-a întâmplat |
 |---|---|---|
+| 2026-10-22 | Cowork | T-14 livrat: Alex a verificat în Rich Results Test, fără erori. T-16 comis (cu această actualizare de roadmap). Din Etapa 1 rămâne T-15 (Lighthouse / imagini). |
+| 2026-10-22 | Cowork | T-14 comis și urcat (`eaccc02`), așteaptă Rich Results Test. T-16 implementat (necomis): `src/app/not-found.tsx` (titlu „pagina asta nu există”, buton acasă, 4 sugestii: servicii, analiza de teren, jurnal, contact). Reparat și „soft 404” pe articole: `/blog/<slug-inexistent>` răspundea 200 cu „Articol în curând”, acum dă `notFound()` (404 + `noindex`). Build verde, lint = baseline. |
 | 2026-10-22 | Cowork | T-14 implementat (necomis): `src/lib/jsonld.ts` + `src/components/seo/JsonLd.tsx`. Pe toate paginile: firma (`ProfessionalService`, subtip `LocalBusiness`) + `WebSite`, cu `@id` fix. Servicii (6 + analiza de teren): `Service` + `BreadcrumbList` + `FAQPage`; `/servicii` și `/contact`: `BreadcrumbList` + `FAQPage`; articole: `BlogPosting` + `BreadcrumbList`, autor = studioul până la C-01. `COMPANY` mutat în `site.ts` (textele juridice neschimbate). Fără program și fără `priceRange` (de confirmat de Alex). Build verde, lint = baseline. Urmează: commit, push, test în Rich Results Test. |
 | 2026-10-22 | Cowork | T-13 livrat (`cb6ebe6`): Analytics și Speed Insights activate, vizite confirmate de Alex. Din Etapa 1 rămân T-14 (JSON-LD, următorul pas recomandat), T-15, T-16. Această bifare e necomisă (intră în commitul următor). |
 | 2026-10-22 | Cowork | T-13 în lucru: `@vercel/analytics` + `@vercel/speed-insights` în `layout.tsx` (fără cookies, nu depind de consimțământ). D-3 închisă. Proiectul Vercel e pe Hobby: fără `track()`; conversiile rămân în emailuri și în viitorul store L-01. Build verde, lint fără erori noi. Alex trebuie să activeze Web Analytics și Speed Insights în dashboard. |

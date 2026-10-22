@@ -81,3 +81,9 @@ Jurnal scurt al deciziilor de arhitectură și al constatărilor de bază. O int
 - `FAQPage`: Google afișează rich results de FAQ doar pentru site-uri guvernamentale și de sănătate (din 2023), deci nu ne dă fragment extins în căutare; rămâne util pentru înțelegerea paginii de către Google și motoarele AI. Regula: întrebările din JSON-LD sunt exact cele afișate (aceeași listă trimisă și la `ServiciiFAQ`, și la `faqJsonLd`).
 - Pagină nouă cu FAQ sau serviciu nou: adaugă `<JsonLd data={...} />` imediat după `<main>`.
 
+## Pagina 404 (T-16, 2026-10-22)
+
+- `src/app/not-found.tsx` prinde orice URL inexistent și orice `notFound()`. Folosește Header/Footer și tiparul de hero al site-ului; nu există ecran 404 în `design-handoff/`.
+- Next pune singur `<meta name="robots" content="noindex">` pe răspunsurile 404; pagina nu mai declară `robots` (ar fi dublat tagul).
+- `/blog/[slug]` cu slug necunoscut cheamă `notFound()` (înainte afișa „Articol în curând” cu status 200, adică „soft 404” pentru Google).
+
