@@ -6,6 +6,8 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import AmorphBackdrop from "@/components/ui/AmorphBackdrop";
 import ServiciiFAQ from "@/components/sections/ServiciiFAQ";
+import JsonLd from "@/components/seo/JsonLd";
+import { servicePageJsonLd } from "@/lib/jsonld";
 import type { FaqItem } from "@/lib/services";
 
 export const metadata: Metadata = pageMetadata({
@@ -358,6 +360,7 @@ export default function DezvoltareWebPage() {
     <>
       <Header />
       <main className="flex-1">
+        <JsonLd data={servicePageJsonLd("dezvoltare-web", DEV_FAQ)} />
         {/* ─────── HERO ─────── */}
         <section className="max-w-[1400px] mx-auto px-5 md:px-14 pt-6 md:pt-10 pb-6">
           <div className="flex items-center gap-2 text-[11px] md:text-[13px] text-muted mb-4 md:mb-7">

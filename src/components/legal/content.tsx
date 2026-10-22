@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
+import { COMPANY } from "@/lib/site";
 
 export type DocKey = "confidentialitate" | "cookies" | "termeni";
 
@@ -21,16 +22,8 @@ export type LegalDoc = {
   sections: LegalSectionData[];
 };
 
-export const COMPANY = {
-  name: "A-Morph Studio SRL",
-  cui: "49840426",
-  regCom: "J40/6530/2024",
-  address: "Bd. Dacia nr. 133, Etaj D, Sector 2, București",
-  email: "office@amorph.ro",
-  phone: "+40 747 089 434",
-  dpoName: "Alexandru Rusovici",
-  dpo: "office@amorph.ro",
-};
+// Datele firmei stau în src/lib/site.ts (le folosesc și paginile legale, și JSON-LD).
+export { COMPANY };
 
 // Card evidențiat pentru informație importantă (ton light / dark).
 function Callout({

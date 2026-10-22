@@ -6,6 +6,18 @@ export const SITE_NAME = "Amorph Studio";
 export const SITE_DESCRIPTION =
   "Studio multidisciplinar din București: planificare urbană, strategii urbane, regenerare urbană, design interior, graphic design și dezvoltare web.";
 
+/** Datele firmei: paginile legale (src/components/legal) și JSON-LD (src/lib/jsonld.ts). */
+export const COMPANY = {
+  name: "A-Morph Studio SRL",
+  cui: "49840426",
+  regCom: "J40/6530/2024",
+  address: "Bd. Dacia nr. 133, Etaj D, Sector 2, București",
+  email: "office@amorph.ro",
+  phone: "+40 747 089 434",
+  dpoName: "Alexandru Rusovici",
+  dpo: "office@amorph.ro",
+};
+
 /**
  * Imaginea de share implicită (src/app/opengraph-image.tsx). Trebuie pusă
  * explicit: un `openGraph` definit de pagină înlocuiește complet pe cel din

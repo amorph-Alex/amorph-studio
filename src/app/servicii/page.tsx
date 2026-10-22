@@ -6,6 +6,8 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import AmorphBackdrop from "@/components/ui/AmorphBackdrop";
 import ServiciiFAQ from "@/components/sections/ServiciiFAQ";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbJsonLd, faqJsonLd } from "@/lib/jsonld";
 import {
   services,
   serviceCombos,
@@ -39,6 +41,7 @@ export default function Servicii() {
     <>
       <Header />
       <main className="flex-1">
+        <JsonLd data={[breadcrumbJsonLd([{ name: "Servicii", path: "/servicii" }]), faqJsonLd(serviciiFaq)]} />
         {/* ─────── HERO ─────── */}
         <section className="max-w-[1400px] mx-auto px-5 md:px-14 pt-10 pb-10 md:pb-16">
           <div className="text-[11px] md:text-[13px] tracking-[0.22em] text-muted mb-3 md:mb-[18px]">

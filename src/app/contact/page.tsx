@@ -4,6 +4,8 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ContactMain from "@/components/sections/ContactMain";
 import ServiciiFAQ from "@/components/sections/ServiciiFAQ";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbJsonLd, faqJsonLd } from "@/lib/jsonld";
 import AmorphBackdrop from "@/components/ui/AmorphBackdrop";
 import type { FaqItem } from "@/lib/services";
 
@@ -66,6 +68,7 @@ export default function Contact() {
     <>
       <Header />
       <main className="flex-1">
+        <JsonLd data={[breadcrumbJsonLd([{ name: "Contact", path: "/contact" }]), faqJsonLd(contactFaq)]} />
         {/* ─────── HERO ─────── */}
         <section className="max-w-[1400px] mx-auto px-5 md:px-14 pt-8 md:pt-10 pb-7 md:pb-14">
           <div className="text-[11px] md:text-[13px] tracking-[0.22em] text-muted mb-3 md:mb-[18px]">

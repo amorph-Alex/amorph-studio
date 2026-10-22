@@ -70,3 +70,14 @@ Jurnal scurt al deciziilor de arhitectură și al constatărilor de bază. O int
 - Web Analytics și Speed Insights trebuie activate o dată din dashboard-ul Vercel (proiect → Analytics → Enable; Speed Insights → Enable).
 - De verificat cu Alex: politica de confidențialitate ar putea menționa Vercel Analytics (măsurare anonimă, fără cookies). Textele juridice nu s-au atins.
 
+## Date structurate JSON-LD (T-14, 2026-10-22)
+
+- Totul trece prin `src/lib/jsonld.ts` (constructori) și `src/components/seo/JsonLd.tsx` (randează `<script type="application/ld+json">`, cu `<` scăpat ca `\u003c`, cum recomandă ghidul Next).
+- Firma se descrie o singură dată, în `layout.tsx` (`siteGraph()`): `ProfessionalService` (subtip de `LocalBusiness`) cu `@id` `https://www.amorph.ro/#organization`, plus `WebSite` (`/#website`). Paginile o referă prin `@id`, nu o repetă.
+- Datele firmei (`COMPANY`: denumire, CUI, adresă, email, telefon) s-au mutat din `legal/content.tsx` în `src/lib/site.ts`; `content.tsx` le reexportă, textul paginilor legale e neschimbat.
+- Adresa e sediul din paginile legale (Bd. Dacia nr. 133, Etaj D, Sector 2). Fără cod poștal, program (`openingHours`) și `priceRange`: nu sunt publicate pe site; se adaugă după ce le confirmă Alex. Fără `sameAs` (site-ul nu are linkuri sociale).
+- Pagini de servicii: `servicePageJsonLd(slug, FAQ)` dă `Service` + `BreadcrumbList` + `FAQPage` din `services.ts` și din FAQ-ul afișat. `/analiza-teren`: `Service` cu `Offer` (590 RON) + firimituri + FAQ. `/servicii` și `/contact`: firimituri + FAQ.
+- Articole: `BlogPosting` + `BreadcrumbList` (Acasă, Jurnal, articol); imaginea = `opengraph-image` al articolului. **Autorul e studioul (Organization)** până la C-01, ca numele fictive din `journal.ts` să nu apară ca persoane în datele structurate. La C-01 se trece pe `Person`.
+- `FAQPage`: Google afișează rich results de FAQ doar pentru site-uri guvernamentale și de sănătate (din 2023), deci nu ne dă fragment extins în căutare; rămâne util pentru înțelegerea paginii de către Google și motoarele AI. Regula: întrebările din JSON-LD sunt exact cele afișate (aceeași listă trimisă și la `ServiciiFAQ`, și la `faqJsonLd`).
+- Pagină nouă cu FAQ sau serviciu nou: adaugă `<JsonLd data={...} />` imediat după `<main>`.
+

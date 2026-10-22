@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Comfortaa } from "next/font/google";
 import "./globals.css";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
+import JsonLd from "@/components/seo/JsonLd";
+import { siteGraph } from "@/lib/jsonld";
 import CookieConsent from "@/components/cookies/CookieConsent";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -50,6 +52,8 @@ export default function RootLayout({
   return (
     <html lang="ro" className={`${comfortaa.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
+        {/* Firma + site-ul (JSON-LD), pe toate paginile; paginile le referă prin @id. */}
+        <JsonLd data={siteGraph()} />
         {children}
         <CookieConsent />
         {/* Vercel Web Analytics + Speed Insights: fără cookies și fără date personale,

@@ -5,6 +5,8 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ServiciiFAQ from "@/components/sections/ServiciiFAQ";
 import AnalizaTerenForm from "@/components/sections/AnalizaTerenForm";
+import JsonLd from "@/components/seo/JsonLd";
+import { serviceJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/jsonld";
 import type { FaqItem } from "@/lib/services";
 
 const PRICE = 590;
@@ -80,33 +82,29 @@ const FAQ: FaqItem[] = [
   },
 ];
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  name: "Analiză urbanistică teren: ce poți construi",
-  serviceType: "Analiză urbanistică preliminară",
-  provider: {
-    "@type": "Organization",
-    name: "A-Morph Studio",
-    url: "https://www.amorph.ro",
-    email: "office@amorph.ro",
-    telephone: "+40747089434",
-  },
-  areaServed: { "@type": "Country", name: "România" },
-  offers: {
-    "@type": "Offer",
-    price: PRICE,
-    priceCurrency: "RON",
-    description: "Preț fix pe parcelă, TVA inclus. Livrare în 3 zile lucrătoare.",
-  },
-};
+const jsonLd = [
+  serviceJsonLd({
+    name: "Analiză urbanistică teren: ce poți construi",
+    serviceType: "Analiză urbanistică preliminară",
+    description:
+      "Afli în scris, în 3 zile lucrătoare, ce poți construi pe un teren: suprafață, niveluri, retrageri, restricții, pașii următori și dacă merită. Întocmită de urbanist atestat RUR.",
+    path: "/analiza-teren",
+    offer: {
+      price: PRICE,
+      currency: "RON",
+      description: "Preț fix pe parcelă, TVA inclus. Livrare în 3 zile lucrătoare.",
+    },
+  }),
+  breadcrumbJsonLd([{ name: "Analiză teren", path: "/analiza-teren" }]),
+  faqJsonLd(FAQ),
+];
 
 export default function AnalizaTerenPage() {
   return (
     <>
       <Header />
       <main className="flex-1">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <JsonLd data={jsonLd} />
 
         {/* ─────── HERO ─────── */}
         <section className="max-w-[1400px] mx-auto px-5 md:px-14 pt-6 md:pt-10 pb-6">

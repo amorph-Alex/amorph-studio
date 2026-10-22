@@ -9,6 +9,8 @@ import ReadingProgress from "@/components/blog/ReadingProgress";
 import ArticleToc from "@/components/blog/ArticleToc";
 import BackToTop from "@/components/blog/BackToTop";
 import ShareMenu from "@/components/blog/ShareMenu";
+import JsonLd from "@/components/seo/JsonLd";
+import { articleJsonLd, breadcrumbJsonLd } from "@/lib/jsonld";
 import {
   type ContentBlock,
   type JournalPost,
@@ -211,6 +213,15 @@ export default async function BlogPost({ params }: PageProps) {
       <ReadingProgress />
       <Header />
       <main className="flex-1">
+        <JsonLd
+          data={[
+            articleJsonLd(post),
+            breadcrumbJsonLd([
+              { name: "Jurnal", path: "/blog" },
+              { name: post.title, path: `/blog/${post.slug}` },
+            ]),
+          ]}
+        />
         {/* ─────── BREADCRUMB ─────── */}
         <div className="max-w-[1400px] mx-auto px-5 md:px-14 pt-3 md:pt-5 text-[12px] md:text-[13px] text-muted flex gap-2 md:gap-2.5 flex-wrap tracking-[0.05em]">
           <Link href="/blog" className="hover:text-accent transition-colors">
