@@ -1,4 +1,4 @@
-import nodemailer from "nodemailer";
+import { sendInternal, smtpTransport } from "@/lib/notify";
 
 export const runtime = "nodejs";
 
@@ -59,19 +59,10 @@ export async function POST(request: Request) {
   }
   const topic = topicRaw as Topic;
 
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, CONTACT_TO } = process.env;
-  if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASS || !CONTACT_TO) {
-    console.error("contact: missing SMTP env vars");
+  if (!process.env.CONTACT_TO || (!smtpTransport() && !process.env.RESEND_API_KEY)) {
+    console.error("contact: missing email env vars");
     return Response.json({ error: "server misconfigured" }, { status: 500 });
   }
-
-  const port = Number(SMTP_PORT);
-  const transporter = nodemailer.createTransport({
-    host: SMTP_HOST,
-    port,
-    secure: port === 465,
-    auth: { user: SMTP_USER, pass: SMTP_PASS },
-  });
 
   const topicLabel = TOPIC_LABELS[topic];
   const subject = `[${topicLabel}] mesaj nou de la ${name}`;
@@ -107,15 +98,10 @@ export async function POST(request: Request) {
   `;
 
   try {
-    await transporter.sendMail({
-      from: `A-Morph Website <${SMTP_USER}>`,
-      to: CONTACT_TO,
-      replyTo: `${name} <${email}>`,
-      subject,
-      text: lines.join("\n"),
-      html,
-    });
-    console.info("contact: email trimis");
+    await sendInternal(
+      { replyTo: `${name} <${email}>`, subject, text: lines.join("\n"), html },
+      "contact"
+    );
   } catch (err) {
     console.error("contact: sendMail failed", err);
     return Response.json({ error: "send failed" }, { status: 500 });

@@ -1,4 +1,4 @@
-import nodemailer from "nodemailer";
+import { sendInternal, smtpTransport } from "@/lib/notify";
 
 export const runtime = "nodejs";
 
@@ -84,19 +84,12 @@ export async function POST(request: Request) {
   const use = USES[useRaw as keyof typeof USES];
   const clientType = CLIENT_TYPES[clientTypeRaw as keyof typeof CLIENT_TYPES];
 
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, CONTACT_TO } = process.env;
-  if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASS || !CONTACT_TO) {
-    console.error("analiza-teren: missing SMTP env vars");
+  const { CONTACT_TO } = process.env;
+  const smtp = smtpTransport();
+  if (!CONTACT_TO || (!smtp && !process.env.RESEND_API_KEY)) {
+    console.error("analiza-teren: missing email env vars");
     return Response.json({ error: "server misconfigured" }, { status: 500 });
   }
-
-  const port = Number(SMTP_PORT);
-  const transporter = nodemailer.createTransport({
-    host: SMTP_HOST,
-    port,
-    secure: port === 465,
-    auth: { user: SMTP_USER, pass: SMTP_PASS },
-  });
 
   const rows: [string, string][] = [
     ["Nume", name],
@@ -165,36 +158,35 @@ export async function POST(request: Request) {
   ].join("\n");
 
   try {
-    const info = await transporter.sendMail({
-      from: `A-Morph Website <${SMTP_USER}>`,
-      to: CONTACT_TO,
-      replyTo: `${name} <${email}>`,
-      subject: `[analiză teren] ${location}, ${county} · ${name}`,
-      text,
-      html,
-    });
-    console.info("analiza-teren: email intern trimis", {
-      messageId: info.messageId,
-      accepted: info.accepted?.length ?? 0,
-      rejected: info.rejected?.length ?? 0,
-      response: info.response,
-    });
+    await sendInternal(
+      {
+        replyTo: `${name} <${email}>`,
+        subject: `[analiză teren] ${location}, ${county} · ${name}`,
+        text,
+        html,
+      },
+      "analiza-teren"
+    );
   } catch (err) {
-    console.error("analiza-teren: internal sendMail failed", err);
+    console.error("analiza-teren: internal notification failed", err);
     return Response.json({ error: "send failed" }, { status: 500 });
   }
 
-  // Confirmarea către client nu blochează comanda dacă eșuează.
-  try {
-    await transporter.sendMail({
-      from: `A-Morph Studio <${SMTP_USER}>`,
-      to: `${name} <${email}>`,
-      replyTo: `A-Morph Studio <${CONTACT_TO}>`,
-      subject: "Am primit comanda ta · analiză teren A-Morph",
-      text: clientText,
-    });
-  } catch (err) {
-    console.error("analiza-teren: client confirmation failed", err);
+  // Confirmarea către client pleacă din contul Gmail al biroului, ca răspunsurile
+  // să ajungă direct acolo. Nu blochează comanda dacă eșuează.
+  if (smtp) {
+    try {
+      await smtp.transporter.sendMail({
+        from: `A-Morph Studio <${smtp.user}>`,
+        to: `${name} <${email}>`,
+        replyTo: `A-Morph Studio <${CONTACT_TO.split(",")[0].trim()}>`,
+        subject: "Am primit comanda ta · analiză teren A-Morph",
+        text: clientText,
+      });
+      console.info("analiza-teren: confirmare client trimisă");
+    } catch (err) {
+      console.error("analiza-teren: client confirmation failed", err);
+    }
   }
 
   return Response.json({ ok: true });
