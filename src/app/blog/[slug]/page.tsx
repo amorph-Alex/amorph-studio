@@ -184,6 +184,17 @@ function RelatedCard({ post }: { post: JournalPost }) {
   );
 }
 
+/** „Ana Pop” → „AP”, pentru avatarul autorului. */
+function initials(name: string): string {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+}
+
 export default async function BlogPost({ params }: PageProps) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
@@ -231,7 +242,7 @@ export default async function BlogPost({ params }: PageProps) {
 
           <div className="flex items-center gap-3 md:gap-6 mt-6 md:mt-10 pt-4 md:pt-[26px] border-t-2 border-dark-card flex-wrap">
             <div className="w-10 h-10 md:w-[52px] md:h-[52px] rounded-full bg-accent flex items-center justify-center text-[14px] md:text-[18px] font-bold text-foreground shrink-0">
-              AM
+              {initials(post.author)}
             </div>
             <div className="flex flex-col">
               <div className="text-[13px] md:text-base font-normal text-foreground">
@@ -322,7 +333,7 @@ export default async function BlogPost({ params }: PageProps) {
         <div className="max-w-[1000px] mx-auto px-5 md:px-14 mt-12 md:mt-[88px]">
           <div className="grid grid-cols-[64px_1fr] md:grid-cols-[120px_1fr_auto] gap-4 md:gap-8 p-4 md:p-8 rounded-[18px] md:rounded-[25px] border-[1.5px] border-dark-card items-center bg-platinum">
             <div className="w-16 h-16 md:w-[120px] md:h-[120px] rounded-full bg-accent flex items-center justify-center text-[22px] md:text-[38px] font-bold text-foreground">
-              AM
+              {initials(post.author)}
             </div>
             <div>
               <div className="text-[11px] md:text-[13px] tracking-[0.22em] text-muted">

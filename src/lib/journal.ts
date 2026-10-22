@@ -50,23 +50,12 @@ export interface JournalPost {
 
 const THUMB = "/images/blog-thumbnail.png";
 
-const ANDRA = {
-  author: "Andra M.",
-  authorRole: "Arhitect-urbanist",
+/** Autorul articolelor (C-01). Semnătura publică e doar cu inițiale, fără nume complet. */
+export const AUTHOR = {
+  author: "AR",
+  authorRole: "Urbanist · cofondator",
   authorBio:
-    "Arhitect-urbanist la Amorph. Scrie despre reglementări ca și cum ar fi istorii scurte. Crede că orice document administrativ are, undeva, un argument estetic.",
-};
-const VLAD = {
-  author: "Vlad R.",
-  authorRole: "Urbanist · strategie",
-  authorBio:
-    "Strateg urban la Amorph. Îl interesează cum deciziile administrative se traduc în viața de zi cu zi a unui cartier.",
-};
-const MARIA = {
-  author: "Maria D.",
-  authorRole: "Designer de interior",
-  authorBio:
-    "Designer de interior la Amorph. Crede că un spațiu bun se simte înainte să se vadă.",
+    "Urbanist și cofondator Amorph, cu atestat R.U.R. Lucrează din 2018 pe documentații de urbanism, autorizări și proiecte de regenerare urbană. Aici scrie ce ar fi vrut să știe clienții înainte de primul drum la primărie.",
 };
 
 export const posts: JournalPost[] = [
@@ -82,7 +71,7 @@ export const posts: JournalPost[] = [
     date: "15 feb 2026",
     dateLong: "15 februarie 2026",
     published: "2026-02-15",
-    ...ANDRA,
+    ...AUTHOR,
     featured: false,
     image: THUMB,
     heroCaption: "↳ primăria Cluj-Napoca, ghișeu urbanism, 2025",
@@ -156,7 +145,7 @@ export const posts: JournalPost[] = [
     date: "02 feb 2026",
     dateLong: "2 februarie 2026",
     published: "2026-02-02",
-    ...ANDRA,
+    ...AUTHOR,
     featured: true,
     image: THUMB,
     heroCaption: "↳ studiu de zonă, periferia Cluj-Napoca, 2024",
@@ -195,7 +184,7 @@ export const posts: JournalPost[] = [
     date: "22 ian 2026",
     dateLong: "22 ianuarie 2026",
     published: "2026-01-22",
-    ...ANDRA,
+    ...AUTHOR,
     featured: false,
     image: THUMB,
     heroCaption: "↳ dosar de autorizare, birou Amorph, 2025",
@@ -229,7 +218,7 @@ export const posts: JournalPost[] = [
     date: "14 ian 2026",
     dateLong: "14 ianuarie 2026",
     published: "2026-01-14",
-    ...VLAD,
+    ...AUTHOR,
     featured: false,
     image: THUMB,
     heroCaption: "↳ spațiu public reamenajat, centru istoric, 2024",
@@ -263,7 +252,7 @@ export const posts: JournalPost[] = [
     date: "08 ian 2026",
     dateLong: "8 ianuarie 2026",
     published: "2026-01-08",
-    ...MARIA,
+    ...AUTHOR,
     featured: false,
     image: THUMB,
     heroCaption: "↳ apartament reamenajat, Cluj-Napoca, 2025",
@@ -297,7 +286,7 @@ export const posts: JournalPost[] = [
     date: "21 dec 2025",
     dateLong: "21 decembrie 2025",
     published: "2025-12-21",
-    ...VLAD,
+    ...AUTHOR,
     featured: false,
     image: THUMB,
     heroCaption: "↳ fostă platformă industrială regenerată, 2023",

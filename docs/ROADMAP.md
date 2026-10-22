@@ -1,7 +1,7 @@
 # ROADMAP amorph.ro
 
-Ultima actualizare: 2026-10-22 (sesiune Cowork: T-15a + T-15b comise)
-Versiune: 2.1
+Ultima actualizare: 2026-10-23 (sesiune Cowork: C-01 implementat; D-1 și D-4 decise)
+Versiune: 2.3
 
 ---
 
@@ -108,15 +108,15 @@ Scop: să vedem ce se întâmplă pe site și să fim indexați corect. Toate su
 - [x] **T-13** (P1) *(2026-10-22: livrat în `cb6ebe6`, Vercel Analytics + Speed Insights activate în dashboard și verificate de Alex; planul Hobby nu colectează evenimente personalizate, deci conversiile se numără din emailuri / L-01. Detalii în DECISIONS)* Analytics conform cu consimțământul de cookies existent: opțiunea recomandată este Vercel Analytics + Speed Insights (fără cookies, simplu) sau GA4 condiționat de `cookie-consent.ts`. Decizia se notează în `DECISIONS.md`. Evenimente minime: trimitere formular contact, **comandă analiză teren** (conversia principală acum), click pe telefon/email, click CTA „ofertă rapidă".
 - [x] **T-14** (P2) *(2026-10-22: livrat în `eaccc02`, verificat de Alex în Rich Results Test fără probleme. Detalii în DECISIONS)* JSON-LD: `Organization` + `LocalBusiness` (adresă, telefon, email, program) în layout; `Service` pe paginile de servicii; `Article` + `BreadcrumbList` pe articole; `FAQPage` pe secțiunile FAQ existente (ServiciiFAQ și FAQ-urile de pe paginile de servicii).
 - [x] **T-15** (P2) *(2026-10-22: audit făcut pe producție; rezultatele și concluziile în DECISIONS)* Audit Lighthouse / Core Web Vitals pe acasă, o pagină de serviciu, un articol. Lista de probleme devine sub-taskuri (imagini PNG mari din `public/images` sunt suspectul principal: conversie la WebP/AVIF, dimensiuni corecte, `priority` pe hero).
-  - [~] **T-15a** (P2) *(2026-10-22: comis, acceptat de Alex; de verificat pe producție după push)* Acasă pe mobil: primele două carduri din hero se încarcă imediat (`loading="eager"`, `fetchPriority="high"`), erau lazy deși unul e LCP; `sizes` pe imaginile din hero și din AboutTeaser; `alt=""` pe imaginile care dublează textul de lângă ele (logo, carduri de articole). Accesibilitate acasă 99 → 100 (local).
-  - [~] **T-15b** (P3) *(2026-10-22: comis, acceptat de Alex: `--muted` = #5c5c5c în `globals.css`; verificat pe 15 pagini × 2 lățimi, niciun text `muted` sub 4,5:1; rămâne doar galbenul de brand. De verificat pe producție după push)* Contrast: tokenul `muted` (#6b6b6b pe #d9d9d9 = 3,78:1) e sub pragul WCAG de 4,5:1 pentru textul mic (etichete, date, firimituri). Propunere: #5c5c5c (4,74:1), o schimbare de nuanță abia vizibilă, pe tot site-ul. Alex decide. Textul galben pe gri (accentul de brand) rămâne, e alegere de design.
+  - [x] **T-15a** (P2) *(2026-10-22: livrat în `4760b9d`, verificat pe producție)* Acasă pe mobil: primele două carduri din hero se încarcă imediat (`loading="eager"`, `fetchPriority="high"`), erau lazy deși unul e LCP; `sizes` pe imaginile din hero și din AboutTeaser; `alt=""` pe imaginile care dublează textul de lângă ele (logo, carduri de articole). Accesibilitate acasă 99 → 100 (local).
+  - [x] **T-15b** (P3) *(2026-10-22: livrat în `59cbacd`, verificat pe producție: `--muted` = #5c5c5c în `globals.css`; verificat pe 15 pagini × 2 lățimi, niciun text `muted` sub 4,5:1; rămâne doar galbenul de brand)* Contrast: tokenul `muted` (#6b6b6b pe #d9d9d9 = 3,78:1) e sub pragul WCAG de 4,5:1 pentru textul mic (etichete, date, firimituri). Propunere: #5c5c5c (4,74:1), o schimbare de nuanță abia vizibilă, pe tot site-ul. Alex decide. Textul galben pe gri (accentul de brand) rămâne, e alegere de design.
 - [x] **T-16** (P3) *(2026-10-22: livrat în `3d3ca24`; verificat pe producție: `/nu-exista` și `/blog/orice` dau 404 + `noindex` cu pagina nouă)* Pagină 404 personalizată (`app/not-found.tsx`) în stilul site-ului.
 
 ### Etapa 2: Conținut și motor editorial (continuu, pornit după Etapa 1)
 
 Scop: publicare de conținut util, regulat, fără fricțiune tehnică, cu autori reali.
 
-- [ ] **C-01** (P1) Autori reali: înlocuire „Andra M." / „Vlad R." / „Maria D." cu Alex (și Anca, dacă e de acord) în `journal.ts`; bio-uri reale, scurte. Pagina Despre noi și articolele trebuie să spună aceeași poveste.
+- [~] **C-01** (P1) *(2026-10-23: implementat, necomis. Decizie D-4: semnează doar Alex. Semnătură doar cu inițiale: „AR, Urbanist · cofondator” pe toate cele 6 articole, fără nume complet nicăieri pe site; bio scurt cu atestatul R.U.R.; în JSON-LD autorul rămâne studioul (Organization). Build verde, lint = baseline)* Autori reali: înlocuire „Andra M." / „Vlad R." / „Maria D." cu Alex (și Anca, dacă e de acord) în `journal.ts`; bio-uri reale, scurte. Pagina Despre noi și articolele trebuie să spună aceeași poveste.
 - [ ] **C-02** (P1) Decizie de arhitectură a conținutului: (a) MDX în repo (`content/blog/*.mdx`) cu frontmatter, fără redeploy manual dacă folosim Vercel + git push, sau (b) CMS headless (Sanity / Payload / Keystatic). Recomandare inițială: **MDX + Keystatic** (editare din browser, fișierele rămân în git, zero cost). Se notează în `DECISIONS.md`.
 - [ ] **C-03** (P1) Migrarea `journal.ts` la formatul ales în C-02, păstrând designul editorial existent (lead cu drop-cap, quote, deflist, TOC generat). Cele 3 articole existente se migrează fără pierderi.
 - [ ] **C-04** (P1) Strategie de conținut: lista de 20-30 de subiecte grupate pe cele 6 servicii, cu keyword principal, intenție de căutare și pagina de serviciu spre care trimit. Se pornește de la ce știe Alex (CATUC / Legea 169/2026, PUZ/PUD/PUG, certificat de urbanism, autorizații, regenerare, DTAC/DTAD/DTOE) și se validează cu date (Ahrefs disponibil în Cowork).
@@ -129,7 +129,7 @@ Scop: publicare de conținut util, regulat, fără fricțiune tehnică, cu autor
 
 Scop: vizitatorul găsește ceva util imediat, iar noi captăm și urmărim lead-urile.
 
-- [ ] **L-01** (P1) Persistarea lead-urilor: `api/contact` și `api/analiza-teren` salvează fiecare trimitere (nume, email, telefon, subiect, mesaj, pagina sursă, UTM, timestamp) într-un store, pe lângă email. Opțiuni: Supabase (există conector în Cowork), Google Sheets (există deja pipeline-ul de lead-gen pe Sheets), Notion. Decizie în `DECISIONS.md`.
+- [ ] **L-01** (P1) *(2026-10-23: decizia D-1 luată, Google Sheets)* Persistarea lead-urilor: `api/contact` și `api/analiza-teren` salvează fiecare trimitere (nume, email, telefon, subiect, mesaj, pagina sursă, UTM, timestamp) într-un store, pe lângă email. Opțiuni: Supabase (există conector în Cowork), Google Sheets (există deja pipeline-ul de lead-gen pe Sheets), Notion. Decizie în `DECISIONS.md`.
 - [ ] **L-02** (P1) Formular de contact cu context: câmp „serviciu" (cele 6), „localitate / județ" pentru urbanism, „buget orientativ" opțional; sursa paginii se trimite automat. Răspuns automat de confirmare către client (template branded, ton Amorph).
 - [ ] **L-03** (P1) Primul instrument: **checklist interactiv „Ce documente îmi trebuie pentru certificat de urbanism / autorizație de construire"** (pornit din articolele existente și skill-urile DTAC). Rezultatul se poate descărca ca PDF branded (există generatorul docx/pdf Amorph) contra email. Acesta e și magnetul de lead-uri.
 - [ ] **L-04** (P2) Al doilea instrument: **estimator de durată și pași pentru PUZ / PUD** (nu prețuri; durate orientative, avize necesare, cine face ce). Alex validează logica.
@@ -177,8 +177,8 @@ Scop: activarea `SHOW_SERVICE_PORTFOLIO` cu proiecte reale.
 2c. ~~L-10 termeni pentru serviciul plătit~~ (livrat 2026-10-22)
 3. ~~T-10 + T-11 metadata, sitemap, robots~~ (livrat 2026-10-22) + ~~T-12 Search Console~~ (livrat 2026-10-22)
 4. ~~T-13 analytics~~ (livrat 2026-10-22: Vercel Analytics)
-5. C-01 autori reali (sesiune scurtă, dar necesară înainte de orice conținut nou)
-6. L-01 persistarea lead-urilor (o sesiune; de aici încolo avem date)
+5. C-01 autori reali (implementat 2026-10-23, de comis)
+6. L-01 persistarea lead-urilor în Google Sheets (o sesiune; de aici încolo avem date)
 
 După acestea, se alternează Etapa 2 (conținut) cu Etapa 3 (instrumente), câte un task din fiecare.
 
@@ -186,10 +186,10 @@ După acestea, se alternează Etapa 2 (conținut) cu Etapa 3 (instrumente), cât
 
 ## 5. Decizii deschise (de luat cu Alex la momentul potrivit)
 
-- **D-1** Store pentru lead-uri: Supabase vs Google Sheets vs Notion (vezi L-01).
+- ~~**D-1** Store pentru lead-uri~~: decis 2026-10-23, Google Sheets (cel mai simplu pentru moment; vezi L-01).
 - **D-2** Motor de conținut: MDX + Keystatic vs CMS headless (vezi C-02).
 - ~~**D-3** Analytics~~: decis 2026-10-22, Vercel Analytics + Speed Insights (plan Hobby, fără evenimente personalizate).
-- **D-4** Cine apare ca autor: doar Alex, sau și Anca (vezi C-01).
+- ~~**D-4** Cine apare ca autor~~: decis 2026-10-23, doar Alex (vezi C-01).
 - **D-5** Ce proiecte pot fi publicate și cu ce imagini (vezi P-01).
 - **D-6** Programări: Cal.com vs Google Calendar (vezi L-06).
 
@@ -199,6 +199,8 @@ După acestea, se alternează Etapa 2 (conținut) cu Etapa 3 (instrumente), cât
 
 | Data | Sesiune | Ce s-a întâmplat |
 |---|---|---|
+| 2026-10-23 | Cowork | D-4: semnează doar Alex. D-1: lead-urile merg în Google Sheets. C-01 implementat (necomis): `journal.ts` are un singur `AUTHOR` („AR”, la cererea lui Alex fără nume complet) în locul celor trei autori fictivi; în articol, avatarul arată inițialele; `articleJsonLd` rămâne cu autor = studioul. Build verde, lint = baseline. Așteaptă acceptul lui Alex pentru bio, apoi commit. Următorul pas: L-01. |
+| 2026-10-22 | Cowork | T-15a și T-15b urcate de Alex și verificate pe producție (primele două carduri din hero cu prioritate, `--muted:#5c5c5c` în CSS-ul live). **Etapa 1 închisă.** Din Etapa 0 rămân T-07 și T-08 (P3). Următorul pas recomandat: C-01 autori reali (decizia D-4: doar Alex sau și Anca), apoi L-01 persistarea lead-urilor. Această actualizare de roadmap e necomisă (intră în commitul următor). |
 | 2026-10-22 | Cowork | Alex a acceptat T-15a și T-15b; comise separat (`T-15a`, `T-15b`), un singur push. Tokenul `muted` devine #5c5c5c (contrast 4,74:1). După verificarea pe producție, Etapa 1 e închisă; următorul pas recomandat: C-01 autori reali, apoi L-01 persistarea lead-urilor. |
 | 2026-10-22 | Cowork | T-16 verificat pe producție și bifat. T-15: Lighthouse pe producție (acasă, planificare urbană, articol): mobil 97 / 91 / 95, desktop 100 peste tot; SEO și Best Practices 100; accesibilitate 95-99. Imaginile PNG nu sunt o problemă (Vercel le servește ca WebP/AVIF). Adăugate T-15a (LCP pe acasă, `sizes`, alt-uri, implementat, necomis) și T-15b (contrastul tokenului `muted`, decizia lui Alex). Etapa 1 se închide după T-15a. |
 | 2026-10-22 | Cowork | T-14 livrat: Alex a verificat în Rich Results Test, fără erori. T-16 comis (cu această actualizare de roadmap). Din Etapa 1 rămâne T-15 (Lighthouse / imagini). |

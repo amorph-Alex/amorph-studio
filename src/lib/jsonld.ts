@@ -168,8 +168,8 @@ export function servicePageJsonLd(slug: string, faq: FaqItem[]): Json[] {
 }
 
 /**
- * Articol de jurnal. Autorul e studioul (Organization) până la C-01:
- * numele din `journal.ts` sunt încă fictive și nu le publicăm ca persoane în date structurate.
+ * Articol de jurnal. Autorul în date structurate e studioul (Organization):
+ * articolele sunt semnate doar cu inițiale (C-01), fără nume complet de persoană.
  */
 export function articleJsonLd(post: JournalPost): Json {
   const url = abs(`/blog/${post.slug}`);
